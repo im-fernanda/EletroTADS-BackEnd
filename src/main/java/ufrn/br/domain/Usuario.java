@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private Long id;
 
     //@NotBlank(message = "Por favor, preencha o campo username.")

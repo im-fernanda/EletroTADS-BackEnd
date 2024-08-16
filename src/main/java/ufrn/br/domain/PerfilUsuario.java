@@ -9,15 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class Produto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    private String nome;
-
-    private String descricao;
-
-    private Integer preco;
-
+public class PerfilUsuario {
 }
