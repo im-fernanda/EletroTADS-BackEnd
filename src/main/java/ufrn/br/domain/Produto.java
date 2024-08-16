@@ -2,6 +2,7 @@ package ufrn.br.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,17 +24,17 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //@NotBlank(message = "Por favor, preencha o campo username.")
+    @NotBlank(message = "Por favor, preencha o campo username.")
     private String nome;
 
-    //@NotBlank(message = "Por favor, preencha o campo username.")
+    @NotBlank(message = "Por favor, preencha o campo descrição.")
     private String descricao;
 
-    //@NotBlank(message = "Por favor, preencha o campo username.")
+    @NotBlank(message = "Por favor, preencha o campo preço.")
     private int preco;
 
     @Min(value = 0, message = "O estoque precisa ser maior que 0.")
-    //@NotBlank(message = "Por favor, preencha o campo username.")
+    @NotBlank(message = "Por favor, preencha o campo estoque.")
     private int estoque;
 
     @CreationTimestamp
