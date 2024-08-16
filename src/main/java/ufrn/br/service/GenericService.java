@@ -1,8 +1,7 @@
-package ufrn.br.springrestweb2024.service;
+package ufrn.br.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 
 import java.util.List;
 import java.util.Optional;
