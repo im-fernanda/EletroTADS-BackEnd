@@ -30,7 +30,7 @@ public class Usuario {
 
     private boolean isAdmin = false;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     List<Endereco> enderecos;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

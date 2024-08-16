@@ -10,7 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLSelect;
 import org.hibernate.annotations.UpdateTimestamp;
-
+import java.util.Set;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -36,6 +36,14 @@ public class Produto {
     @Min(value = 0, message = "O estoque precisa ser maior que 0.")
     @NotBlank(message = "Por favor, preencha o campo estoque.")
     private int estoque;
+
+    @ManyToMany
+    @JoinTable(
+            name = "produto_categoria",
+            joinColumns = @JoinColumn(name = "id_produto"),
+            inverseJoinColumns = @JoinColumn(name = "id_categoria")
+    )
+    private Set<Categoria> categorias;
 
     @CreationTimestamp
     LocalDateTime createdAt;
