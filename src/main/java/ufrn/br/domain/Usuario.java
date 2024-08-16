@@ -2,6 +2,7 @@ package ufrn.br.domain;
 
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,10 +22,10 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.UUID)
     private Long id;
 
-    //@NotBlank(message = "Por favor, preencha o campo username.")
+    @NotBlank(message = "Por favor, preencha o campo username.")
     private String username;
 
-    //@NotBlank(message = "Por favor, preencha o campo senha.")
+    @NotBlank(message = "Por favor, preencha o campo senha.")
     private String password;
 
     private boolean isAdmin = false;
