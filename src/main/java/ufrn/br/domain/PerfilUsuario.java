@@ -22,7 +22,7 @@ public class PerfilUsuario {
     private String genero;
 
     @NotBlank(message = "Por favor, preencha o campo data de nascimento.")
-    private Long dataNascimento;
+    private String dataNascimento;
 
 
 }
