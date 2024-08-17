@@ -1,10 +1,7 @@
 package ufrn.br.domain;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,6 +26,10 @@ public class Endereco {
     private String bairro;
 
     private String complemento;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     @NotBlank(message = "Por favor, preencha o campo cidade.")
     private String cidade;
