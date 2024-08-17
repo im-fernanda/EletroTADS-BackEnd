@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.*;
+import ufrn.br.domain.Endereco;
 
 import java.time.LocalDateTime;
 import java.util.List;
