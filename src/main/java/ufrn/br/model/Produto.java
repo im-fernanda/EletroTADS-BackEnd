@@ -1,4 +1,4 @@
-package ufrn.br.domain;
+package ufrn.br.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;

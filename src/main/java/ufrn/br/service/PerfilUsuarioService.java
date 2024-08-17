@@ -1,7 +1,7 @@
 package ufrn.br.service;
 
 import org.springframework.stereotype.Service;
-import ufrn.br.domain.PerfilUsuario;
+import ufrn.br.model.PerfilUsuario;
 import ufrn.br.repository.PerfilUsuarioRepository;
 
 

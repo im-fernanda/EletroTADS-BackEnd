@@ -2,7 +2,7 @@ package ufrn.br.service;
 
 
 import org.springframework.stereotype.Service;
-import ufrn.br.domain.Produto;
+import ufrn.br.model.Produto;
 import ufrn.br.repository.ProdutoRepository;
 
 

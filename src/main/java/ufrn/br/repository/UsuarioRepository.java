@@ -1,5 +1,5 @@
 package ufrn.br.repository;
-import ufrn.br.domain.Usuario;
+import ufrn.br.model.Usuario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
