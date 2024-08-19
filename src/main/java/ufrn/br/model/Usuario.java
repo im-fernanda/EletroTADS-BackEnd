@@ -1,4 +1,4 @@
-package ufrn.br.domain;
+package ufrn.br.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
@@ -20,7 +20,7 @@ import java.util.List;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private String id;
 
     @NotBlank(message = "Por favor, preencha o campo username.")
     private String username;

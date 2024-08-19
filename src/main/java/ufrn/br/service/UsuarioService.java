@@ -1,7 +1,7 @@
 package ufrn.br.service;
 
 import org.springframework.stereotype.Service;
-import ufrn.br.domain.Usuario;
+import ufrn.br.model.Usuario;
 import ufrn.br.repository.UsuarioRepository;
 
 import java.util.UUID;

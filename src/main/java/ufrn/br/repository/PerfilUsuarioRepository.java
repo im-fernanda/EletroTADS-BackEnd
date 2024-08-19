@@ -1,5 +1,5 @@
 package ufrn.br.repository;
-import ufrn.br.domain.PerfilUsuario;
+import ufrn.br.model.PerfilUsuario;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

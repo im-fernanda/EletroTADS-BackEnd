@@ -1,4 +1,4 @@
-package ufrn.br.domain;
+package ufrn.br.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -43,13 +43,12 @@ public class Produto {
             joinColumns = @JoinColumn(name = "id_produto"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
-    private Set<Categoria> categorias;
+    private Set<Categoria> categoria;
 
     @CreationTimestamp
     LocalDateTime createdAt;
     @UpdateTimestamp
     LocalDateTime updatedAt;
-
     LocalDateTime deletedAt;
 
 }

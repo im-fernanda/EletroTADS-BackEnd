@@ -1,4 +1,4 @@
-package ufrn.br.domain;
+package ufrn.br.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -20,6 +20,6 @@ public class Categoria {
     @NotBlank
     private String nome;
 
-    @ManyToMany(mappedBy = "categorias")
+    @ManyToMany(mappedBy = "categoria")
     private Set<Produto> produtos;
 }
