@@ -17,14 +17,14 @@ public class ProdutoRequestDTO extends RepresentationModel<ProdutoResponseDTO> {
     String nome;
     String descricao;
     float preco;
-    int quantidade;
-    List<CategoriaResponseDTO> categoria;
+    int estoque;
+    List<CategoriaResponseDTO> categorias;
 
     public void addLinks(Produto produto) {
         this.add(linkTo(ProdutoController.class).slash(produto.getId()).withSelfRel());
 
-        if(produto.getCategoria() != null){
-            for(Categoria categoria : produto.getCategoria()){
+        if(produto.getCategorias() != null){
+            for(Categoria categoria : produto.getCategorias()){
                 this.add(linkTo(CategoriaController.class).slash(categoria.getId()).withRel("categoria"));
             }
         }

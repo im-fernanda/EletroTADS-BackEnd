@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/categorias/")
 @AllArgsConstructor
 public class CategoriaController {
+    /*
     private final ProdutoService service;
     private final ModelMapper mapper;
 
@@ -90,4 +91,6 @@ public class CategoriaController {
 
         return categoria;
     }
+
+     */
 }
