@@ -8,12 +8,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Data
 public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO> {
-    private String rua;
-    private String numero;
-    private String bairro;
-    private String complemento;
-    private String cidade;
-    private String uf;
+    String rua;
+    String numero;
+    String bairro;
+    String complemento;
+    String cidade;
+    String uf;
 
     public void addLinks(Endereco endereco) {
         this.add(linkTo(EnderecoController.class).slash(endereco.getId()).withSelfRel());

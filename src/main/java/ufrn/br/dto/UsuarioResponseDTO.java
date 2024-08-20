@@ -10,12 +10,14 @@ import ufrn.br.controller.UsuarioController;
 import ufrn.br.model.Endereco;
 import ufrn.br.model.Usuario;
 import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UsuarioResponseDTO extends RepresentationModel<UsuarioResponseDTO> {
+    Long id;
     String username;
     Boolean isAdmin;
     //PerfilUsuarioResponseDTO perfilUsuario;

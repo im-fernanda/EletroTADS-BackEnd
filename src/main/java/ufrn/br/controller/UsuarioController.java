@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ufrn.br.dto.UsuarioRequestDTO;
 import ufrn.br.dto.UsuarioResponseDTO;
+import ufrn.br.model.PerfilUsuario;
 import ufrn.br.model.Usuario;
 import ufrn.br.service.UsuarioService;
 import lombok.AllArgsConstructor;

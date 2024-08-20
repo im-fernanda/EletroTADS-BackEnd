@@ -15,13 +15,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProdutoResponseDTO extends RepresentationModel<ProdutoResponseDTO> {
-
-    private Long id;
-    private String nome;
-    private String descricao;
-    private float preco;
-    private int estoque;
-    private Set<CategoriaResponseDTO> categorias;
+    Long id;
+    String nome;
+    String descricao;
+    float preco;
+    int estoque;
+    Set<CategoriaResponseDTO> categorias;
 
     public void addLinks(Produto product){
         this.add(linkTo(ProdutoController.class).slash(product.getId()).withSelfRel());

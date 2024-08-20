@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioRequestDTO{
+public class UsuarioRequestDTO {
     String username;
     String senha;
     Boolean isAdmin = false;
