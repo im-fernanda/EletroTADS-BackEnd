@@ -13,9 +13,8 @@ import ufrn.br.dto.CategoriaResponseDTO;
 import ufrn.br.model.Categoria;
 import ufrn.br.model.Produto;
 import ufrn.br.service.CategoriaService;
-
 import java.net.URI;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -70,7 +69,6 @@ public class CategoriaController {
         return ResponseEntity.ok(convertToDto(updated));
     }
 
-
     private CategoriaResponseDTO convertToDto(Categoria category){
         CategoriaResponseDTO categoriaDto = mapper.map(category, CategoriaResponseDTO.class);
         categoriaDto.addLinks(category);
@@ -80,9 +78,9 @@ public class CategoriaController {
 
     private Categoria convertToEntity(CategoriaRequestDTO categoryDto){
         Categoria categoria = mapper.map(categoryDto, Categoria.class);
-        List<Produto> produtos = categoryDto.getProdutos().stream()
+        Set<Produto> produtos = categoryDto.getProdutos().stream()
                 .map(dto -> mapper.map(dto, Produto.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         categoria.setProdutos(produtos);
 

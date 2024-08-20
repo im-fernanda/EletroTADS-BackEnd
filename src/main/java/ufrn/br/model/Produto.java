@@ -1,18 +1,17 @@
 package ufrn.br.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.*;
-import java.util.List;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Data
 @SQLDelete(sql = "UPDATE Produto SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
@@ -27,25 +26,25 @@ public class Produto {
     @NotBlank(message = "Por favor, preencha o campo descrição.")
     private String descricao;
 
-    @NotBlank(message = "Por favor, preencha o campo preço.")
+    @NotNull(message = "Por favor, preencha o campo preço.")
     private int preco;
 
-    @Min(value = 0, message = "O estoque precisa ser maior que 0.")
-    @NotBlank(message = "Por favor, preencha o campo estoque.")
+    @NotNull(message = "Por favor, preencha o campo estoque.")
     private int estoque;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "produto_categoria",
             joinColumns = @JoinColumn(name = "id_produto"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
-    private List<Categoria> categoria;
+    private Set<Categoria> categorias;
 
     @CreationTimestamp
     LocalDateTime createdAt;
+
     @UpdateTimestamp
     LocalDateTime updatedAt;
-    LocalDateTime deletedAt;
 
+    LocalDateTime deletedAt;
 }

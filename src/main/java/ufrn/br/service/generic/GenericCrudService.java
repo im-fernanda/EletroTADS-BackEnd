@@ -5,11 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ufrn.br.service.interfaces.ICrudService;
-
 import java.util.Optional;
 
 public abstract class GenericCrudService<T, ID, REPO extends JpaRepository<T, ID>> implements ICrudService<T, ID> {
-
     private final REPO repository;
 
     public GenericCrudService(REPO repository) {
@@ -48,11 +46,3 @@ public abstract class GenericCrudService<T, ID, REPO extends JpaRepository<T, ID
         return this.repository.saveAndFlush(entity);
     }
 }
-
-
-
-
-
-
-
-
