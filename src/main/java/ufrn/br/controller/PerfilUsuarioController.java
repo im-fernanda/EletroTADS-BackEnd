@@ -40,7 +40,7 @@ public class PerfilUsuarioController {
 
     @PostMapping
     public ResponseEntity<PerfilUsuarioResponseDTO> create(@RequestBody PerfilUsuarioRequestDTO userDto){
-        Usuario created = service.create(convertToEntity(userDto));
+        PerfilUsuario created = service.create(convertToEntity(userDto));
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
