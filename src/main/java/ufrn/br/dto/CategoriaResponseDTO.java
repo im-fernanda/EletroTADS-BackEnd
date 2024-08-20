@@ -1,16 +1,18 @@
 package ufrn.br.dto;
 
+import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 import ufrn.br.controller.CategoriaController;
 import ufrn.br.controller.ProdutoController;
 import ufrn.br.model.Categoria;
 import ufrn.br.model.Produto;
+
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
+@Data
 public class CategoriaResponseDTO extends RepresentationModel<CategoriaResponseDTO> {
-
     String nome;
     List<ProdutoResponseDTO> produtos;
 
@@ -24,5 +26,3 @@ public class CategoriaResponseDTO extends RepresentationModel<CategoriaResponseD
         }
     }
 }
-
-

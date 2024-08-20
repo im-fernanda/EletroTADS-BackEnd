@@ -5,8 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.*;
-
-import java.util.Set;
+import java.util.List;
 import java.time.LocalDateTime;
 
 @Entity
@@ -41,7 +40,7 @@ public class Produto {
             joinColumns = @JoinColumn(name = "id_produto"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
-    private Set<Categoria> categoria;
+    private List<Categoria> categoria;
 
     @CreationTimestamp
     LocalDateTime createdAt;
