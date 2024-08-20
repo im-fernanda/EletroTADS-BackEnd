@@ -52,9 +52,9 @@ public class PerfilUsuarioController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UsuarioResponseDTO> getById(@PathVariable("id") Long id){
+    public ResponseEntity<PerfilUsuarioResponseDTO> getById(@PathVariable("id") Long id){
         PerfilUsuario perfilUsuario = service.findById(id);
-        UsuarioResponseDTO perfilUsuarioDto = mapper.map(perfilUsuario, UsuarioResponseDTO.class);
+        PerfilUsuarioResponseDTO perfilUsuarioDto = mapper.map(perfilUsuario, PerfilUsuarioResponseDTO.class);
 
         return ResponseEntity.ok(perfilUsuarioDto);
     }
