@@ -83,13 +83,6 @@ public class UsuarioController {
 
     private Usuario convertToEntity(UsuarioRequestDTO userDto){
         Usuario entityUsuario = mapper.map(userDto, Usuario.class);
-        PerfilUsuario entityPerfilUsuario = mapper.map(userDto.getPerfilUsuario(), PerfilUsuario.class);
-        List<Endereco> entityEnderecos = userDto.getEnderecos().stream()
-                                        .map(dto -> mapper.map(dto, Endereco.class))
-                                       .collect(Collectors.toList());
-
-        entityUsuario.setPerfilUsuario(entityPerfilUsuario);
-        entityUsuario.setEnderecos(entityEnderecos);
 
         return entityUsuario;
     }

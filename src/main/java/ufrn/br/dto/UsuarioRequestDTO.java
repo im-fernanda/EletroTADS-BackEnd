@@ -12,6 +12,6 @@ public class UsuarioRequestDTO{
     String username;
     String senha;
     Boolean isAdmin;
-    PerfilUsuarioRequestDTO perfilUsuario;
-    List<EnderecoRequestDTO> enderecos;
+    //PerfilUsuarioRequestDTO perfilUsuario;
+    //List<EnderecoRequestDTO> enderecos;
 }

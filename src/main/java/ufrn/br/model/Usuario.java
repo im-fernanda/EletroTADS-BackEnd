@@ -29,7 +29,7 @@ public class Usuario {
     @NotBlank (message = "A senha não pode estar em branco")
     String senha;
 
-    Boolean isAdmin;
+    Boolean isAdmin = false;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id_perfilUsuario")
