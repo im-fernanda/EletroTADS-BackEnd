@@ -7,16 +7,12 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Data
 @SQLDelete(sql = "UPDATE Categoria SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
@@ -33,7 +29,9 @@ public class Categoria {
 
     @CreationTimestamp
     LocalDateTime createdAt;
+
     @UpdateTimestamp
     LocalDateTime updatedAt;
+
     LocalDateTime deletedAt;
 }

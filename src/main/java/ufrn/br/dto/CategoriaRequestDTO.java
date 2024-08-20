@@ -12,4 +12,3 @@ public class CategoriaRequestDTO {
     String nome;
     List<ProdutoRequestDTO> produtos;
 }
-

@@ -8,9 +8,7 @@ import ufrn.br.controller.CategoriaController;
 import ufrn.br.controller.ProdutoController;
 import ufrn.br.model.Categoria;
 import ufrn.br.model.Produto;
-
 import java.util.Set;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Data

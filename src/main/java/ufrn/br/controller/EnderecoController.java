@@ -7,17 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ufrn.br.dto.CategoriaResponseDTO;
 import ufrn.br.dto.EnderecoResponseDTO;
-import ufrn.br.model.Categoria;
 import ufrn.br.model.Endereco;
 import ufrn.br.service.EnderecoService;
 import lombok.AllArgsConstructor;
-
 import java.net.URI;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/enderecos/")

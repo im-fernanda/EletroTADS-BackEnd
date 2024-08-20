@@ -8,7 +8,6 @@ import ufrn.br.controller.UsuarioController;
 import ufrn.br.model.Endereco;
 import ufrn.br.model.Usuario;
 import java.util.List;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Data

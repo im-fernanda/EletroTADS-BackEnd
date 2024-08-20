@@ -7,5 +7,4 @@ public class PerfilUsuarioRequestDTO {
     private String nome;
     private String genero;
     private String dataNascimento;
-
 }

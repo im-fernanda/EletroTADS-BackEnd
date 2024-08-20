@@ -2,20 +2,16 @@ package ufrn.br.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.*;
-import java.util.List;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Data
 @SQLDelete(sql = "UPDATE Produto SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
@@ -46,8 +42,9 @@ public class Produto {
 
     @CreationTimestamp
     LocalDateTime createdAt;
+
     @UpdateTimestamp
     LocalDateTime updatedAt;
-    LocalDateTime deletedAt;
 
+    LocalDateTime deletedAt;
 }

@@ -12,13 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/produtos/")
@@ -72,14 +68,12 @@ public class ProdutoController {
         return ResponseEntity.ok(convertToDto(updated));
     }
 
-
     private ProdutoResponseDTO convertToDto(Produto product){
         ProdutoResponseDTO usuarioDto = mapper.map(product, ProdutoResponseDTO.class);
         usuarioDto.addLinks(product);
 
         return usuarioDto;
     }
-
 
     private Produto convertToEntity(ProdutoRequestDTO productDto){
         Produto produto = mapper.map(productDto, Produto.class);

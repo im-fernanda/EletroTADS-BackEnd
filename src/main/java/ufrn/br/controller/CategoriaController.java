@@ -13,9 +13,7 @@ import ufrn.br.dto.CategoriaResponseDTO;
 import ufrn.br.model.Categoria;
 import ufrn.br.model.Produto;
 import ufrn.br.service.CategoriaService;
-
 import java.net.URI;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -70,7 +68,6 @@ public class CategoriaController {
         Categoria updated = service.update(mapper.map(categoryDto, Categoria.class), id);
         return ResponseEntity.ok(convertToDto(updated));
     }
-
 
     private CategoriaResponseDTO convertToDto(Categoria category){
         CategoriaResponseDTO categoriaDto = mapper.map(category, CategoriaResponseDTO.class);
