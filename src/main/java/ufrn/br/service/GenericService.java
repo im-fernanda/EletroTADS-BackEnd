@@ -25,7 +25,7 @@ public abstract class GenericService<T, ID, REPO extends JpaRepository<T, ID>> i
     }
 
     @Override
-    public T listById(ID id) {
+    public T findById(ID id) {
         Optional<T> optional = repository.findById(id);
         if (optional.isPresent()) {
             return optional.get();
@@ -36,7 +36,7 @@ public abstract class GenericService<T, ID, REPO extends JpaRepository<T, ID>> i
     @Override
     public void deleteById(ID id) {
 
-        T entity = this.listById(id);
+        T entity = this.findById(id);
         this.repository.delete(entity);
     }
 

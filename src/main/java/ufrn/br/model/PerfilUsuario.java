@@ -2,14 +2,18 @@ package ufrn.br.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Data
-@Entity
+@SQLDelete(sql = "UPDATE Categoria SET deleted_at = CURRENT_TIMESTAMP where id=?")
+@SQLRestriction("deleted_at is null")
 public class PerfilUsuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

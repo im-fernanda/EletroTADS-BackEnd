@@ -3,42 +3,45 @@ package ufrn.br.model;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Data
-@SQLDelete(sql = "UPDATE usuario SET deleted_at = CURRENT_TIMESTAMP where id=?")
-@SQLSelect(sql = "deleted_at is null")
+@SQLDelete(sql = "UPDATE Categoria SET deleted_at = CURRENT_TIMESTAMP where id=?")
+@SQLRestriction("deleted_at is null")
 public class Usuario {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @NotBlank(message = "Por favor, preencha o campo username.")
-    private String username;
+    @NotBlank (message = "O username não pode estar em branco")
+    String username;
 
-    @NotBlank(message = "Por favor, preencha o campo senha.")
-    private String password;
+    @NotBlank (message = "A senha não pode estar em branco")
+    String senha;
 
-    private boolean isAdmin = false;
+    Boolean isAdmin;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_perfilUsuario")
+    PerfilUsuario perfilUsuario;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     List<Endereco> enderecos;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_perfilUsuario")
-    private PerfilUsuario id_perfilUsuario;
 
     @CreationTimestamp
     LocalDateTime createdAt;
+
     @UpdateTimestamp
     LocalDateTime updatedAt;
 

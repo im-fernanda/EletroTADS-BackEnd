@@ -3,22 +3,20 @@ package ufrn.br.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLSelect;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.*;
+import org.hibernate.annotations.*;
+
 import java.util.Set;
 import java.time.LocalDateTime;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Data
-@Entity
-@SQLDelete(sql = "UPDATE produto SET deleted_at = CURRENT_TIMESTAMP where id=?")
-@SQLSelect(sql = "deleted_at is null")
+@SQLDelete(sql = "UPDATE Produto SET deleted_at = CURRENT_TIMESTAMP where id=?")
+@SQLRestriction("deleted_at is null")
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
