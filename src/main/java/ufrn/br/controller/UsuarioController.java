@@ -1,5 +1,7 @@
 package ufrn.br.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ufrn.br.dto.UsuarioRequestDTO;
 import ufrn.br.dto.UsuarioResponseDTO;
 import ufrn.br.model.Endereco;
@@ -27,9 +29,9 @@ public class UsuarioController {
     private final ModelMapper mapper;
 
     @GetMapping
-     public Page<UsuarioResponseDto> listAll(Pageable pageable) {
+     public Page<UsuarioResponseDTO> listAll(Pageable pageable) {
         Page<Usuario> usuariosPage = service.listAll(pageable);
-        return usuraiosPage.map(this::convertToDto);
+        return usuariosPage.map(this::convertToDto);
     }
 
     @PostMapping

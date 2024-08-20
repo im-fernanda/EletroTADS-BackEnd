@@ -1,11 +1,10 @@
 package ufrn.br.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ufrn.br.dto.ProdutoRequestDTO;
 import ufrn.br.dto.ProdutoResponseDTO;
-import ufrn.br.model.Categoria;
-import ufrn.br.model.Endereco;
-import ufrn.br.model.PerfilUsuario;
-import ufrn.br.model.Produto;
+import ufrn.br.model.*;
 import ufrn.br.service.ProdutoService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,8 +27,9 @@ public class ProdutoController {
     private final ModelMapper mapper;
 
     @GetMapping
-    public List<ProdutoResponseDTO> listAll(){
-        return service.listAll().stream().map(this::convertToDto).collect(toList());
+    public Page<ProdutoResponseDTO> listAll(Pageable pageable) {
+        Page<Produto> produtosPage = service.listAll(pageable);
+        return produtosPage.map(this::convertToDto);
     }
 
     @PostMapping
