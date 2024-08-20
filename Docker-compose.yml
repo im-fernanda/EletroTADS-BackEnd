@@ -5,7 +5,7 @@ services:
     image: postgres:alpine
     container_name: eletrotads_db_container
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USERNAME}
