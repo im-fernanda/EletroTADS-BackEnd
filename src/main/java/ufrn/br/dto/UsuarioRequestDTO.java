@@ -15,3 +15,4 @@ public class UsuarioRequestDTO{
     //PerfilUsuarioRequestDTO perfilUsuario;
     //List<EnderecoRequestDTO> enderecos;
 }
+
