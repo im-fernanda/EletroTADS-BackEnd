@@ -10,6 +10,4 @@ public class EnderecoRequestDTO {
     String complemento;
     String cidade;
     String uf;
-
-
 }

@@ -20,6 +20,6 @@ public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO
     private String uf;
 
     public void addLinks(Endereco endereco) {
-        this.add(linkTo(PerfilUsuarioController.class).slash(endereco.getId()).withSelfRel());
+        this.add(linkTo(EnderecoController.class).slash(endereco.getId()).withSelfRel());
     }
 }

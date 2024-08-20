@@ -8,5 +8,4 @@ public class PerfilUsuarioRequestDTO {
     private String genero;
     private String dataNascimento;
 
-
 }
