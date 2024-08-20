@@ -3,10 +3,9 @@ package ufrn.br.dto;
 import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 import ufrn.br.controller.EnderecoController;
+import ufrn.br.controller.PerfilUsuarioController;
 import ufrn.br.model.Endereco;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Data
 public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO> {
@@ -17,6 +16,9 @@ public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO
     private String cidade;
     private String uf;
 
-    // Método para adicionar os links HATEOAS
+    public void addLinks(Endereco endereco){
+        this.add(linkTo(EnderecoController.class).slash(endereco.getId()).withSelfRel());
+        this.add(linkTo(PerfilUsuarioController.class).slash(endereco.getUsuario().getId()).withRel("perfil"));
+    }
 
 }
