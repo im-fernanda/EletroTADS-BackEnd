@@ -19,6 +19,6 @@ public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO
 
     // Método para adicionar os links HATEOAS
     public void addLinks(Endereco endereco) {
-        this.add(linkTo(methodOn(EnderecoController.class).getById(endereco.getId())).withSelfRel());
+        this.add(linkTo(methodOn(EnderecoController.class).findById(endereco.getId())).withSelfRel());
     }
 }
