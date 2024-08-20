@@ -83,14 +83,3 @@ public class EnderecoController {
         return mapper.map(enderecoDTO, Endereco.class);
     }
 }
-
-
-
-
-
-/*EnderecoService service;
-
-    @GetMapping
-    public List<Endereco> listAll() {
-        return service.listAll();
-    }*/
