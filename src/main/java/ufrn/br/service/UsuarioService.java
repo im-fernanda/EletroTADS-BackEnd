@@ -7,7 +7,7 @@ import ufrn.br.repository.UsuarioRepository;
 import java.util.UUID;
 
 @Service
-public class UsuarioService extends GenericService<Usuario, UUID, UsuarioRepository> {
+public class UsuarioService extends GenericService<Usuario, Long, UsuarioRepository> {
 
     public UsuarioService(UsuarioRepository repository) {
         super(repository);
