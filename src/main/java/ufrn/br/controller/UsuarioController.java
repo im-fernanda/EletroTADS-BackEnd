@@ -4,8 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import ufrn.br.dto.UsuarioRequestDTO;
 import ufrn.br.dto.UsuarioResponseDTO;
-import ufrn.br.model.Endereco;
-import ufrn.br.model.PerfilUsuario;
 import ufrn.br.model.Usuario;
 import ufrn.br.service.UsuarioService;
 import lombok.AllArgsConstructor;
@@ -15,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/usuarios/")
@@ -63,6 +59,7 @@ public class UsuarioController {
         try {
             Usuario usuario = service.findById(id);
         } catch (Exception e) {
+            System.out.println("Não fez o update");
             return this.create(userDto);
         }
 
