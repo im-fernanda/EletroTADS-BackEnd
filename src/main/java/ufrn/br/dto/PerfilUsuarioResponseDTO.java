@@ -20,8 +20,7 @@ public class PerfilUsuarioResponseDTO extends RepresentationModel<PerfilUsuarioR
 
     public void addLinks(PerfilUsuario perfilUser){
         this.add(linkTo(PerfilUsuarioController.class).slash(perfilUser.getId()).withSelfRel());
-        this.add(linkTo(UsuarioController.class).slash(perfilUser.getId()).withRel("usuario"));
+       // this.add(linkTo(UsuarioController.class).slash(perfilUser.getId()).withRel("usuario"));
 
     }
-
 }
