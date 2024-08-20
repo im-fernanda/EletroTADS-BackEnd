@@ -75,11 +75,11 @@ public class UsuarioController {
     }
 
 
-    private UsuarioResponseDTO convertToDto(Usuario usarioCreated){
-        UsuarioResponseDTO usuarioDto = mapper.map(user, UsuarioResponseDTO.class);
-        usuarioDto.addLinks(usarioCreated);
+    private UsuarioResponseDTO convertToDto(Usuario usuarioCreated){
+        UsuarioResponseDTO usuarioResponseDto = mapper.map(usuarioCreated, UsuarioResponseDTO.class);
+        usuarioResponseDto.addLinks(usuarioCreated);
 
-        return usuarioDto;
+        return usuarioResponseDto;
     }
 
     private Usuario convertToEntity(UsuarioRequestDTO userDto){
@@ -89,8 +89,8 @@ public class UsuarioController {
                                         .map(dto -> mapper.map(dto, Endereco.class))
                                        .collect(Collectors.toList());
 
-        usuario.setPerfilUsuario(entityPerfilUsuario);
-        usuario.setEnderecos(entityEnderecos);
+        entityUsuario.setPerfilUsuario(entityPerfilUsuario);
+        entityUsuario.setEnderecos(entityEnderecos);
 
         return entityUsuario;
     }

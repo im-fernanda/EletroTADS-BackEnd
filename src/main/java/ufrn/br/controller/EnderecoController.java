@@ -24,9 +24,9 @@ public class EnderecoController {
     private final ModelMapper mapper;
 
     @GetMapping
-    public List<EnderecoResponseDTO> listAll() {
-        return service.listAll().stream().map(this::convertToDto).collect(toList());
-    }
+   // public List<EnderecoResponseDTO> listAll() {
+  //      return service.listAll().stream().map(this::convertToDto).collect(toList());
+  //  }
 
     @PostMapping
     public ResponseEntity<EnderecoResponseDTO> create(@RequestBody EnderecoResponseDTO enderecoDTO) {
@@ -41,11 +41,11 @@ public class EnderecoController {
         return ResponseEntity.created(location).body(convertToDto(created));
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<EnderecoResponseDTO> getById(@PathVariable("id") Long id) {
-        Endereco endereco = service.findById(id);
-        return ResponseEntity.ok(convertToDto(endereco));
-    }
+    //@GetMapping("{id}")
+   // public ResponseEntity<EnderecoResponseDTO> getById(@PathVariable("id") Long id) {
+    //    Endereco endereco = service.findById(id);
+   //     return ResponseEntity.ok(convertToDto(endereco));
+    //}
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
