@@ -27,8 +27,9 @@ public class UsuarioController {
     private final ModelMapper mapper;
 
     @GetMapping
-    public List<UsuarioResponseDTO> listAll(){
-        return service.listAll().stream().map(this::convertToDto).collect(toList());
+     public Page<UsuarioResponseDto> listAll(Pageable pageable) {
+        Page<Usuario> usuariosPage = service.listAll(pageable);
+        return usuraiosPage.map(this::convertToDto);
     }
 
     @PostMapping
@@ -38,7 +39,7 @@ public class UsuarioController {
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("/{id}")
+                .path("{id}")
                 .buildAndExpand(created.getId())
                 .toUri();
 
@@ -60,35 +61,35 @@ public class UsuarioController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<UsuarioResponseDTO> update(@PathVariable("id") Long id, @RequestBody UsuarioRequestDTO userDto){
+    public ResponseEntity<UsuarioResponseDTO> update(@RequestBody UsuarioRequestDTO userDto, @PathVariable("id") Long id){
         try {
             Usuario usuario = service.findById(id);
         } catch (Exception e) {
             return this.create(userDto);
         }
 
-        Usuario updated = service.update(mapper.map(userDto, Usuario.class), id);
-        return ResponseEntity.ok(convertToDto(updated));
+        Usuario usuarioUpdated = service.update(mapper.map(userDto, Usuario.class), id);
+        return ResponseEntity.ok(convertToDto(usuarioUpdated));
     }
 
 
-    private UsuarioResponseDTO convertToDto(Usuario user){
+    private UsuarioResponseDTO convertToDto(Usuario usarioCreated){
         UsuarioResponseDTO usuarioDto = mapper.map(user, UsuarioResponseDTO.class);
-        usuarioDto.addLinks(user);
+        usuarioDto.addLinks(usarioCreated);
 
         return usuarioDto;
     }
 
     private Usuario convertToEntity(UsuarioRequestDTO userDto){
-        Usuario usuario = mapper.map(userDto, Usuario.class);
-        PerfilUsuario perfilUsuario = mapper.map(userDto.getPerfilUsuario(), PerfilUsuario.class);
-        List<Endereco> enderecos = userDto.getEnderecos().stream()
-                .map(dto -> mapper.map(dto, Endereco.class))
-                .collect(Collectors.toList());
+        Usuario entityUsuario = mapper.map(userDto, Usuario.class);
+        PerfilUsuario entityPerfilUsuario = mapper.map(userDto.getPerfilUsuario(), PerfilUsuario.class);
+        List<Endereco> entityEnderecos = userDto.getEnderecos().stream()
+                                        .map(dto -> mapper.map(dto, Endereco.class))
+                                       .collect(Collectors.toList());
 
-        usuario.setPerfilUsuario(perfilUsuario);
-        usuario.setEnderecos(enderecos);
+        usuario.setPerfilUsuario(entityPerfilUsuario);
+        usuario.setEnderecos(entityEnderecos);
 
-        return usuario;
+        return entityUsuario;
     }
 }
