@@ -27,7 +27,7 @@ public class Produto {
     private String descricao;
 
     @NotNull(message = "Por favor, preencha o campo preço.")
-    private int preco;
+    private float preco;
 
     @NotNull(message = "Por favor, preencha o campo estoque.")
     private int estoque;

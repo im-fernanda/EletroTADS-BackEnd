@@ -19,7 +19,7 @@ public class ProdutoResponseDTO extends RepresentationModel<ProdutoResponseDTO> 
     private Long id;
     private String nome;
     private String descricao;
-    private int preco;
+    private float preco;
     private int estoque;
     private Set<CategoriaResponseDTO> categorias;
 

@@ -11,7 +11,7 @@ import java.util.List;
 public class UsuarioRequestDTO{
     String username;
     String senha;
-    Boolean isAdmin;
+    Boolean isAdmin = false;
     //PerfilUsuarioRequestDTO perfilUsuario;
     //List<EnderecoRequestDTO> enderecos;
 }

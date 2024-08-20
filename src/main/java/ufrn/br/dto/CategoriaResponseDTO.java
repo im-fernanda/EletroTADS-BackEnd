@@ -7,13 +7,14 @@ import ufrn.br.controller.ProdutoController;
 import ufrn.br.model.Categoria;
 import ufrn.br.model.Produto;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Data
 public class CategoriaResponseDTO extends RepresentationModel<CategoriaResponseDTO> {
     String nome;
-    List<ProdutoResponseDTO> produtos;
+    Set<ProdutoResponseDTO> produtos;
 
     public void addLinks(Categoria categoria){
         this.add(linkTo(CategoriaController.class).slash(categoria.getId()).withSelfRel());
