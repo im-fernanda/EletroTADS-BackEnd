@@ -5,8 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -25,5 +24,5 @@ public class Categoria {
     private String nome;
 
     @ManyToMany(mappedBy = "categoria")
-    private Set<Produto> produtos;
+    private List<Produto> produtos;
 }
