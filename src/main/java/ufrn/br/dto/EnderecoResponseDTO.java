@@ -18,7 +18,5 @@ public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO
     private String uf;
 
     // Método para adicionar os links HATEOAS
-    public void addLinks(Endereco endereco) {
-        this.add(linkTo(methodOn(EnderecoController.class).findById(endereco.getId())).withSelfRel());
-    }
+
 }
