@@ -45,5 +45,5 @@ public class Usuario {
     @UpdateTimestamp
     LocalDateTime updatedAt;
 
-    LocalDateTime deletedAt;
+    LocalDateTime deletedAt; //deletedAt para fazer o soft delete
 }
