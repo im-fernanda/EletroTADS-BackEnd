@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.dto.CategoriaRequestDTO;
 import ufrn.br.dto.CategoriaResponseDTO;
-import ufrn.br.dto.ProdutoRequestDTO;
-import ufrn.br.dto.ProdutoResponseDTO;
 import ufrn.br.model.Categoria;
 import ufrn.br.model.Produto;
-import ufrn.br.service.ProdutoService;
+import ufrn.br.service.CategoriaService;
 
 import java.net.URI;
 import java.util.List;
@@ -24,7 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/categorias/")
 @AllArgsConstructor
 public class CategoriaController {
-    private final ProdutoService service;
+    private final CategoriaService service;
     private final ModelMapper mapper;
 
     @GetMapping
