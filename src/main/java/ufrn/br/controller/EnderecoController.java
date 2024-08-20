@@ -1,11 +1,15 @@
 package ufrn.br.controller;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ufrn.br.dto.CategoriaResponseDTO;
 import ufrn.br.dto.EnderecoResponseDTO;
+import ufrn.br.model.Categoria;
 import ufrn.br.model.Endereco;
 import ufrn.br.service.EnderecoService;
 import lombok.AllArgsConstructor;
@@ -24,9 +28,10 @@ public class EnderecoController {
     private final ModelMapper mapper;
 
     @GetMapping
-   // public List<EnderecoResponseDTO> listAll() {
-  //      return service.listAll().stream().map(this::convertToDto).collect(toList());
-  //  }
+    public Page<EnderecoResponseDTO> listAll(Pageable pageable) {
+        Page<Endereco> enderecosPage = service.listAll(pageable);
+        return enderecosPage.map(this::convertToDto);
+    }
 
     @PostMapping
     public ResponseEntity<EnderecoResponseDTO> create(@RequestBody EnderecoResponseDTO enderecoDTO) {
@@ -41,11 +46,13 @@ public class EnderecoController {
         return ResponseEntity.created(location).body(convertToDto(created));
     }
 
-    //@GetMapping("{id}")
-   // public ResponseEntity<EnderecoResponseDTO> getById(@PathVariable("id") Long id) {
-    //    Endereco endereco = service.findById(id);
-   //     return ResponseEntity.ok(convertToDto(endereco));
-    //}
+    @GetMapping("{id}")
+    public ResponseEntity<EnderecoResponseDTO> getById(@PathVariable("id") Long id){
+        Endereco endereco = service.findById(id);
+        EnderecoResponseDTO enderecoDto = mapper.map(endereco, EnderecoResponseDTO.class);
+
+        return ResponseEntity.ok(enderecoDto);
+    }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
