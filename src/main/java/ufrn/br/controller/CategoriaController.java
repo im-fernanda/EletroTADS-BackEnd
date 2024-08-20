@@ -10,22 +10,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ufrn.br.dto.CategoriaRequestDTO;
 import ufrn.br.dto.CategoriaResponseDTO;
-import ufrn.br.dto.ProdutoRequestDTO;
-import ufrn.br.dto.ProdutoResponseDTO;
 import ufrn.br.model.Categoria;
 import ufrn.br.model.Produto;
-import ufrn.br.service.ProdutoService;
+import ufrn.br.service.CategoriaService;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categorias/")
 @AllArgsConstructor
 public class CategoriaController {
-    /*
-    private final ProdutoService service;
+    private final CategoriaService service;
     private final ModelMapper mapper;
 
     @GetMapping
@@ -83,14 +81,12 @@ public class CategoriaController {
 
     private Categoria convertToEntity(CategoriaRequestDTO categoryDto){
         Categoria categoria = mapper.map(categoryDto, Categoria.class);
-        List<Produto> produtos = categoryDto.getProdutos().stream()
+        Set<Produto> produtos = categoryDto.getProdutos().stream()
                 .map(dto -> mapper.map(dto, Produto.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         categoria.setProdutos(produtos);
 
         return categoria;
     }
-
-     */
 }

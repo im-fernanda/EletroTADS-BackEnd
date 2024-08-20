@@ -36,7 +36,6 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> create(@RequestBody UsuarioRequestDTO userDto){
-
         Usuario created = service.create(convertToEntity(userDto));
 
         URI location = ServletUriComponentsBuilder
