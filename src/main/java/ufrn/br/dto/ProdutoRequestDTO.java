@@ -13,8 +13,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class ProdutoRequestDTO extends RepresentationModel<ProdutoResponseDTO> {
     String nome;
     String descricao;
