@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@SQLDelete(sql = "UPDATE Categoria SET deleted_at = CURRENT_TIMESTAMP where id=?")
+@SQLDelete(sql = "UPDATE Usuario SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
 public class Usuario {
     @Id

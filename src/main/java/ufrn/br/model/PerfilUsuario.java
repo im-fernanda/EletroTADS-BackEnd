@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@SQLDelete(sql = "UPDATE Categoria SET deleted_at = CURRENT_TIMESTAMP where id=?")
+@SQLDelete(sql = "UPDATE PerfilUsuario SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
 public class PerfilUsuario {
     @Id
