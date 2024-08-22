@@ -32,7 +32,7 @@ public class Produto {
     @NotNull(message = "Por favor, preencha o campo estoque.")
     private int estoque;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "produto_categoria",
             joinColumns = @JoinColumn(name = "id_produto"),

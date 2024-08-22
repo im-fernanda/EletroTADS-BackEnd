@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 import ufrn.br.controller.CategoriaController;
-import ufrn.br.controller.ProdutoController;
+import ufrn.br.controller.ProdutoCategoriaController;
 import ufrn.br.model.Categoria;
 import ufrn.br.model.Produto;
 import java.util.Set;
@@ -23,11 +23,11 @@ public class ProdutoResponseDTO extends RepresentationModel<ProdutoResponseDTO> 
     Set<CategoriaResponseDTO> categorias;
 
     public void addLinks(Produto product){
-        this.add(linkTo(ProdutoController.class).slash(product.getId()).withSelfRel());
+        this.add(linkTo(ProdutoCategoriaController.class).slash(product.getId()).withSelfRel());
 
         if(product.getCategorias() != null){
             for(Categoria categoria : product.getCategorias()){
-                this.add(linkTo(CategoriaController.class).slash(categoria.getId()).withRel("categorias"));
+                this.add(linkTo(ProdutoCategoriaController.class).slash(categoria.getId()).withRel("categorias"));
             }
         }
     }

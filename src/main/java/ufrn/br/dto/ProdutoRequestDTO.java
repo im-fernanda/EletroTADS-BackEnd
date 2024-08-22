@@ -8,11 +8,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProdutoRequestDTO extends RepresentationModel<ProdutoResponseDTO> {
+public class ProdutoRequestDTO {
     String nome;
     String descricao;
     float preco;
     int estoque;
-    Set<CategoriaResponseDTO> categorias;
-
+    Set<Long> categoriasIds;
 }

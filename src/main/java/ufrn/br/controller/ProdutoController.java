@@ -1,4 +1,4 @@
-package ufrn.br.controller;
+/*package ufrn.br.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -85,4 +85,4 @@ public class ProdutoController {
 
         return produto;
     }
-}
+}*/
