@@ -1,50 +1,44 @@
-package ufrn.br.model;
+package com.example.demo.domain;
 
+import com.example.demo.domain.generic.AbstractEntity;
 import jakarta.persistence.*;
-import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.*;
-import java.time.LocalDateTime;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Data
 @SQLDelete(sql = "UPDATE Produto SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
-public class Produto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Produto extends AbstractEntity {
 
-    @NotBlank(message = "Por favor, preencha o campo username.")
-    private String nome;
+    @NotBlank (message = "O nome não pode estar em branco")
+    String nome;
 
-    @NotBlank(message = "Por favor, preencha o campo descrição.")
-    private String descricao;
+    @NotBlank (message = "A descrilção não pode estar em branco")
+    String descricao;
 
-    @NotNull(message = "Por favor, preencha o campo preço.")
-    private float preco;
+    @NotNull (message = "O preço não pode estar em branco")
+    float preco;
 
-    @NotNull(message = "Por favor, preencha o campo estoque.")
-    private int estoque;
+    @NotNull(message = "A quantidade não pode estar em branco")
+    int estoque;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
-            name = "produto_categoria",
+            name = "Produto_categoria",
             joinColumns = @JoinColumn(name = "id_produto"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
-    private Set<Categoria> categorias;
-
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
-
-    LocalDateTime deletedAt;
+    private List<Categoria> categorias = new ArrayList<>();
 }

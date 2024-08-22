@@ -1,23 +1,25 @@
-package ufrn.br.model;
+package com.example.demo.domain;
 
+
+import com.example.demo.domain.generic.AbstractEntity;
 import jakarta.persistence.*;
-import jakarta.persistence.CascadeType;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.*;
-import java.time.LocalDateTime;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Data
 @SQLDelete(sql = "UPDATE Usuario SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
-public class Usuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Usuario extends AbstractEntity {
 
     @NotBlank (message = "O username não pode estar em branco")
     String username;
@@ -27,18 +29,9 @@ public class Usuario {
 
     Boolean isAdmin = false;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_perfilUsuario")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     PerfilUsuario perfilUsuario;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Endereco> enderecos;
-
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
-
-    LocalDateTime deletedAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    List<Endereco> enderecos = new ArrayList<>();
 }

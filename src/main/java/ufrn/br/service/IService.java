@@ -1,9 +1,10 @@
-package ufrn.br.service.interfaces;
+package com.example.demo.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface ICrudService<T, ID> {
+
+public interface IService<T, ID>{
     public T create(T entity);
     public Page<T> listAll(Pageable pageable);
     public T findById(ID id);

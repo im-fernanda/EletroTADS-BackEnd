@@ -1,6 +1,6 @@
-package ufrn.br.repository;
+package com.example.demo.repository;
 
-import ufrn.br.model.Categoria;
+import com.example.demo.domain.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {

@@ -1,5 +1,12 @@
-package ufrn.br.controller;
+package com.example.demo.controller;
 
+import com.example.demo.domain.Endereco;
+import com.example.demo.domain.Usuario;
+import com.example.demo.dto.EnderecoRequestDto;
+import com.example.demo.dto.EnderecoResponseDto;
+import com.example.demo.service.EnderecoService;
+import com.example.demo.service.UsuarioService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,10 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ufrn.br.dto.EnderecoResponseDTO;
-import ufrn.br.model.Endereco;
-import ufrn.br.service.EnderecoService;
-import lombok.AllArgsConstructor;
 import java.net.URI;
 
 @RestController
@@ -19,17 +22,16 @@ import java.net.URI;
 public class EnderecoController {
 
     private final EnderecoService service;
+    private final UsuarioService usuarioService;
     private final ModelMapper mapper;
 
-    @GetMapping
-    public Page<EnderecoResponseDTO> listAll(Pageable pageable) {
-        Page<Endereco> enderecosPage = service.listAll(pageable);
-        return enderecosPage.map(this::convertToDto);
-    }
-
     @PostMapping
-    public ResponseEntity<EnderecoResponseDTO> create(@RequestBody EnderecoResponseDTO enderecoDTO) {
-        Endereco created = service.create(convertToEntity(enderecoDTO));
+    public ResponseEntity<EnderecoResponseDto> create(@RequestBody EnderecoRequestDto enderecoDto) {
+        Usuario usuario = usuarioService.findById(enderecoDto.getId_usuario());
+        Endereco endereco = convertToEntity(enderecoDto);
+        endereco.setUsuario(usuario);
+
+        Endereco created = service.create(endereco);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -40,40 +42,44 @@ public class EnderecoController {
         return ResponseEntity.created(location).body(convertToDto(created));
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<EnderecoResponseDTO> getById(@PathVariable("id") Long id){
-        Endereco endereco = service.findById(id);
-        EnderecoResponseDTO enderecoDto = mapper.map(endereco, EnderecoResponseDTO.class);
+    @PutMapping("/{id}")
+    public ResponseEntity<EnderecoResponseDto> update(@PathVariable Long id, @RequestBody EnderecoRequestDto enderecoDto) {
+        try{
+            Endereco endereco = service.findById(id);
+        } catch (Exception e) {
+            return this.create(enderecoDto);
+        }
 
-        return ResponseEntity.ok(enderecoDto);
+        Endereco endereco = convertToEntity(enderecoDto);
+        endereco.setId(id);
+        Endereco updated = service.update(endereco, endereco.getId());
+
+        return ResponseEntity.ok(convertToDto(updated));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<EnderecoResponseDto> findById(@PathVariable Long id) {
+        Endereco endereco = service.findById(id);
+        return ResponseEntity.ok(convertToDto(endereco));
+    }
+
+    @GetMapping
+    public Page<EnderecoResponseDto> listAll(Pageable pageable) {
+        Page<Endereco> page = service.listAll(pageable);
+        return page.map(this::convertToDto);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Long id) {
+    public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<EnderecoResponseDTO> update(@PathVariable("id") Long id, @RequestBody EnderecoResponseDTO enderecoDTO) {
-        Endereco endereco;
-        try {
-            endereco = service.findById(id);
-        } catch (Exception e) {
-            return this.create(enderecoDTO);
-        }
-
-        Endereco updated = service.update(mapper.map(enderecoDTO, Endereco.class), id);
-        return ResponseEntity.ok(convertToDto(updated));
+    private EnderecoResponseDto convertToDto(Endereco endereco){
+        return mapper.map(endereco, EnderecoResponseDto.class);
     }
 
-    private EnderecoResponseDTO convertToDto(Endereco endereco) {
-        EnderecoResponseDTO enderecoDto = mapper.map(endereco, EnderecoResponseDTO.class);
-        enderecoDto.addLinks(endereco);
-        return enderecoDto;
-    }
-
-    private Endereco convertToEntity(EnderecoResponseDTO enderecoDTO) {
-        return mapper.map(enderecoDTO, Endereco.class);
+    private Endereco convertToEntity(@RequestBody EnderecoRequestDto enderecoDto){
+        return mapper.map(enderecoDto, Endereco.class);
     }
 }

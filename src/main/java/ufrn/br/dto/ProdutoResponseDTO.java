@@ -1,33 +1,34 @@
-package ufrn.br.dto;
+package com.example.demo.dto;
 
+import com.example.demo.controller.CategoriaController;
+import com.example.demo.controller.ProdutoController;
+import com.example.demo.domain.Categoria;
+import com.example.demo.domain.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
-import ufrn.br.controller.CategoriaController;
-import ufrn.br.controller.ProdutoCategoriaController;
-import ufrn.br.model.Categoria;
-import ufrn.br.model.Produto;
-import java.util.Set;
+
+import java.util.List;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProdutoResponseDTO extends RepresentationModel<ProdutoResponseDTO> {
-    Long id;
+public class ProdutoResponseDto extends RepresentationModel<ProdutoResponseDto> {
     String nome;
     String descricao;
     float preco;
-    int estoque;
-    Set<CategoriaResponseDTO> categorias;
+    int quantidade;
+    List<CategoriaResponseDto> categorias;
 
-    public void addLinks(Produto product){
-        this.add(linkTo(ProdutoCategoriaController.class).slash(product.getId()).withSelfRel());
+    public void addLinks(Produto produto) {
+        this.add(linkTo(ProdutoController.class).slash(produto.getId()).withSelfRel());
 
-        if(product.getCategorias() != null){
-            for(Categoria categoria : product.getCategorias()){
-                this.add(linkTo(ProdutoCategoriaController.class).slash(categoria.getId()).withRel("categorias"));
+        if(produto.getCategorias() != null){
+            for(Categoria categoria : produto.getCategorias()){
+                this.add(linkTo(CategoriaController.class).slash(categoria.getId()).withRel("categorias"));
             }
         }
     }

@@ -1,51 +1,40 @@
-package ufrn.br.model;
+package com.example.demo.domain;
 
+import com.example.demo.domain.generic.AbstractEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import org.hibernate.annotations.UpdateTimestamp;
-import java.time.LocalDateTime;
 
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Data
 @SQLDelete(sql = "UPDATE Endereco SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
-public class Endereco {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Endereco extends AbstractEntity {
 
-    @NotBlank(message = "Por favor, preencha o campo rua.")
-    private String rua;
+    @NotBlank (message = "A rua não pode estar em braco")
+    String rua;
 
-    @NotBlank(message = "Por favor, preencha o campo numero.")
-    private String numero;
+    @NotBlank (message = "O número não pode estar em braco")
+    String numero;
 
-    @NotBlank(message = "Por favor, preencha o campo bairro.")
-    private String bairro;
+    @NotBlank (message = "O bairro não pode estar em braco")
+    String bairro;
 
-    private String complemento;
+    String complemento;
+
+    @NotBlank (message = "A cidade não pode estar em braco")
+    String cidade;
+
+    @NotBlank (message = "O estado não pode estar em braco")
+    String uf;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
-
-    @NotBlank(message = "Por favor, preencha o campo cidade.")
-    private String cidade;
-
-    @NotBlank(message = "Por favor, preencha o campo uf.")
-    private String uf;
-
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
-
-    LocalDateTime deletedAt;
 }

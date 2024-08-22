@@ -1,12 +1,11 @@
-package ufrn.br.service;
+package com.example.demo.service;
 
+import com.example.demo.domain.Usuario;
+import com.example.demo.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
-import ufrn.br.model.Usuario;
-import ufrn.br.repository.UsuarioRepository;
-import ufrn.br.service.generic.GenericCrudService;
 
 @Service
-public class UsuarioService extends GenericCrudService<Usuario, Long, UsuarioRepository> {
+public class UsuarioService extends GenericService<Usuario, Long, UsuarioRepository> {
     public UsuarioService(UsuarioRepository repository) {
         super(repository);
     }

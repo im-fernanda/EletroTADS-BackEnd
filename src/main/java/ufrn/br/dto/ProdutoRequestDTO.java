@@ -1,17 +1,18 @@
-package ufrn.br.dto;
+package com.example.demo.dto;
 
-import lombok.*;
-import org.springframework.hateoas.RepresentationModel;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProdutoRequestDTO {
+public class ProdutoRequestDto {
     String nome;
     String descricao;
     float preco;
     int estoque;
-    Set<Long> categoriasIds;
+    List<Long> ids_categorias;
 }

@@ -1,14 +1,15 @@
-package ufrn.br.dto;
+package com.example.demo.dto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Set;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaRequestDTO {
+public class CategoriaRequestDto {
     String nome;
-    Set<ProdutoRequestDTO> produtos;
 }

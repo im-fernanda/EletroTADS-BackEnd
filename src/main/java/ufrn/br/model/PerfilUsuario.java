@@ -1,39 +1,34 @@
-package ufrn.br.model;
+package com.example.demo.domain;
 
-import jakarta.persistence.*;
+import com.example.demo.domain.generic.AbstractEntity;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import org.hibernate.annotations.UpdateTimestamp;
-import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Data
-@SQLDelete(sql = "UPDATE perfil_usuario SET deleted_at = CURRENT_TIMESTAMP where id=?")
+@SQLDelete(sql = "UPDATE perfilUsuario SET deleted_at = CURRENT_TIMESTAMP where id=?")
 @SQLRestriction("deleted_at is null")
-public class PerfilUsuario {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class PerfilUsuario extends AbstractEntity {
 
-    @NotBlank(message = "Por favor, preencha o campo nome.")
-    private String nome;
+    @NotBlank (message = "O nome não pode estar em branco")
+    String nome;
 
-    @NotBlank(message = "Por favor, preencha o campo gênero.")
-    private String genero;
+    String genero;
 
-    @NotBlank(message = "Por favor, preencha o campo data de nascimento.")
-    private String dataNascimento;
+    @NotBlank (message = "A data de nascimento não pode estar em branco")
+    String dataNascimento;
 
-    @CreationTimestamp
-    LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    LocalDateTime updatedAt;
-
-    LocalDateTime deletedAt;
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    Usuario usuario;
 }

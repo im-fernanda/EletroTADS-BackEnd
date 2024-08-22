@@ -1,13 +1,20 @@
-package ufrn.br.dto;
+package com.example.demo.dto;
 
+import com.example.demo.controller.EnderecoController;
+import com.example.demo.controller.UsuarioController;
+import com.example.demo.domain.Endereco;
+import com.example.demo.domain.Usuario;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
-import ufrn.br.controller.EnderecoController;
-import ufrn.br.model.Endereco;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Data
-public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO> {
+@AllArgsConstructor
+@NoArgsConstructor
+public class EnderecoResponseDto extends RepresentationModel<EnderecoResponseDto> {
     String rua;
     String numero;
     String bairro;
@@ -15,7 +22,7 @@ public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO
     String cidade;
     String uf;
 
-    public void addLinks(Endereco endereco) {
+    public void addLinks(Endereco endereco){
         this.add(linkTo(EnderecoController.class).slash(endereco.getId()).withSelfRel());
     }
 }

@@ -1,21 +1,12 @@
-package ufrn.br.service;
+package com.example.demo.service;
 
+import com.example.demo.domain.Categoria;
+import com.example.demo.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
-import ufrn.br.model.Categoria;
-import ufrn.br.model.Produto;
-import ufrn.br.repository.CategoriaRepository;
-import ufrn.br.service.generic.GenericCrudService;
 
 @Service
-public class CategoriaService extends GenericCrudService<Categoria, Long, CategoriaRepository> {
-    CategoriaRepository categoriaRepository;
+public class CategoriaService extends GenericService<Categoria, Long, CategoriaRepository> {
     public CategoriaService(CategoriaRepository repository) {
         super(repository);
-        categoriaRepository = repository;
-    }
-
-    public Categoria patchUpdate(Categoria categoria, Produto produto) {
-        categoria.getProdutos().add(produto);
-        return categoriaRepository.save(categoria);
     }
 }

@@ -1,88 +1,111 @@
-/*package ufrn.br.controller;
+package com.example.demo.controller;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import ufrn.br.dto.ProdutoRequestDTO;
-import ufrn.br.dto.ProdutoResponseDTO;
-import ufrn.br.model.*;
-import ufrn.br.service.ProdutoService;
+import com.example.demo.domain.Categoria;
+import com.example.demo.domain.Endereco;
+import com.example.demo.domain.Produto;
+import com.example.demo.domain.Usuario;
+import com.example.demo.dto.EnderecoRequestDto;
+import com.example.demo.dto.EnderecoResponseDto;
+import com.example.demo.dto.ProdutoRequestDto;
+import com.example.demo.dto.ProdutoResponseDto;
+import com.example.demo.service.CategoriaService;
+import com.example.demo.service.EnderecoService;
+import com.example.demo.service.ProdutoService;
+import com.example.demo.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.net.URI;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/produtos/")
 @AllArgsConstructor
 public class ProdutoController {
-    private final ProdutoService service;
-    private final ModelMapper mapper;
 
-    @GetMapping
-    public Page<ProdutoResponseDTO> listAll(Pageable pageable) {
-        Page<Produto> produtosPage = service.listAll(pageable);
-        return produtosPage.map(this::convertToDto);
-    }
+    private final ProdutoService service;
+    private final CategoriaService usuarioService;
+    private final ModelMapper mapper;
+    private final CategoriaService categoriaService;
 
     @PostMapping
-    public ResponseEntity<ProdutoResponseDTO> create(@RequestBody ProdutoRequestDTO productDto){
-        Produto created = service.create(convertToEntity(productDto));
+    public ResponseEntity<ProdutoResponseDto> create(@RequestBody ProdutoRequestDto produtoDto) {
+        Produto produto = convertToEntity(produtoDto);
+
+        List<Categoria> categorias = produtoDto.getIds_categorias().stream()
+                .map(categoriaService::findById)
+                .collect(Collectors.toList());
+
+        produto.setCategorias(categorias);
+        Produto created = service.create(produto);
+
+        categorias.forEach(categoria -> categoria.getProdutos().add(created));
+        categorias.forEach(categoriaService::create);
+
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("{id}")
+                .path("/{id}")
                 .buildAndExpand(created.getId())
                 .toUri();
 
         return ResponseEntity.created(location).body(convertToDto(created));
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<ProdutoResponseDTO> getById(@PathVariable("id") Long id){
-        Produto produto = service.findById(id);
-        ProdutoResponseDTO produtoDto = mapper.map(produto, ProdutoResponseDTO.class);
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoResponseDto> update(@PathVariable Long id, @RequestBody ProdutoRequestDto produtoDto) {
+        try{
+            Produto produto = service.findById(id);
+        } catch (Exception e) {
+            return this.create(produtoDto);
+        }
 
-        return ResponseEntity.ok(produtoDto);
+        Produto produto = convertToEntity(produtoDto);
+        produto.setId(id);
+
+        List<Categoria> categorias = produtoDto.getIds_categorias().stream()
+                .map(categoriaService::findById)
+                .collect(Collectors.toList());
+
+        produto.setCategorias(categorias);
+        Produto updated = service.update(produto, produto.getId());
+
+        categorias.forEach(categoria -> categoria.getProdutos().add(updated));
+        categorias.forEach(categoriaService::create);
+
+        return ResponseEntity.ok(convertToDto(updated));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<ProdutoResponseDto> findById(@PathVariable Long id) {
+        Produto produto = service.findById(id);
+        return ResponseEntity.ok(convertToDto(produto));
+    }
+
+    @GetMapping
+    public Page<ProdutoResponseDto> listAll(Pageable pageable) {
+        Page<Produto> page = service.listAll(pageable);
+        return page.map(this::convertToDto);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Long id){
+    public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<ProdutoResponseDTO> update(@PathVariable("id") Long id, @RequestBody ProdutoRequestDTO productDto){
-        try {
-            Produto produto = service.findById(id);
-        } catch (Exception e) {
-            return this.create(productDto);
-        }
-
-        Produto updated = service.update(mapper.map(productDto, Produto.class), id);
-        return ResponseEntity.ok(convertToDto(updated));
+    private ProdutoResponseDto convertToDto(Produto produto){
+        return mapper.map(produto, ProdutoResponseDto.class);
     }
 
-    private ProdutoResponseDTO convertToDto(Produto product){
-        ProdutoResponseDTO produtoDto = mapper.map(product, ProdutoResponseDTO.class);
-        produtoDto.addLinks(product);
-
-        return produtoDto;
+    private Produto convertToEntity(@RequestBody ProdutoRequestDto produtoDto){
+        return mapper.map(produtoDto, Produto.class);
     }
-
-    private Produto convertToEntity(ProdutoRequestDTO productDto){
-        Produto produto = mapper.map(productDto, Produto.class);
-        Set<Categoria> categorias = productDto.getCategorias().stream()
-                .map(dto -> mapper.map(dto, Categoria.class))
-                .collect(Collectors.toSet());
-
-        produto.setCategorias(categorias);
-
-        return produto;
-    }
-}*/
+}

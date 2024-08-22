@@ -1,5 +1,13 @@
-package ufrn.br.controller;
+package com.example.demo.controller;
 
+import com.example.demo.domain.Categoria;
+import com.example.demo.domain.Produto;
+import com.example.demo.dto.CategoriaRequestDto;
+import com.example.demo.dto.CategoriaResponseDto;
+import com.example.demo.dto.ProdutoRequestDto;
+import com.example.demo.dto.ProdutoResponseDto;
+import com.example.demo.service.CategoriaService;
+import com.example.demo.service.ProdutoService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -8,31 +16,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ufrn.br.dto.CategoriaRequestDTO;
-import ufrn.br.dto.CategoriaResponseDTO;
-import ufrn.br.model.Categoria;
-import ufrn.br.model.Produto;
-import ufrn.br.service.CategoriaService;
+
 import java.net.URI;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categorias/")
 @AllArgsConstructor
 public class CategoriaController {
+
     private final CategoriaService service;
     private final ModelMapper mapper;
 
-    @GetMapping
-    public Page<CategoriaResponseDTO> listAll(Pageable pageable) {
-        Page<Categoria> categoriasPage = service.listAll(pageable);
-        return categoriasPage.map(this::convertToDto);
-    }
-
     @PostMapping
-    public ResponseEntity<CategoriaResponseDTO> create(@RequestBody CategoriaRequestDTO categoryDto){
-        Categoria created = service.create(convertToEntity(categoryDto));
+    public ResponseEntity<CategoriaResponseDto> create(@RequestBody CategoriaRequestDto categoriaDto) {
+        Categoria categoria = convertToEntity(categoriaDto);
+        Categoria created = service.create(categoria);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -43,47 +43,45 @@ public class CategoriaController {
         return ResponseEntity.created(location).body(convertToDto(created));
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<CategoriaResponseDTO> getById(@PathVariable("id") Long id){
-        Categoria categoria = service.findById(id);
-        CategoriaResponseDTO categoriaDto = mapper.map(categoria, CategoriaResponseDTO.class);
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoriaResponseDto> update(@PathVariable Long id, @RequestBody CategoriaRequestDto categoriaDto) {
+        try{
+            Categoria categoria = service.findById(id);
+        } catch (Exception e) {
+            return this.create(categoriaDto);
+        }
 
-        return ResponseEntity.ok(categoriaDto);
+        Categoria categoria = convertToEntity(categoriaDto);
+        categoria.setId(id);
+
+        Categoria updated = service.update(categoria, categoria.getId());
+
+        return ResponseEntity.ok(convertToDto(updated));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<CategoriaResponseDto> findById(@PathVariable Long id) {
+        Categoria categoria = service.findById(id);
+        return ResponseEntity.ok(convertToDto(categoria));
+    }
+
+    @GetMapping
+    public Page<CategoriaResponseDto> listAll(Pageable pageable) {
+        Page<Categoria> page = service.listAll(pageable);
+        return page.map(this::convertToDto);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Long id){
+    public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<CategoriaResponseDTO> update(@PathVariable("id") Long id, @RequestBody CategoriaRequestDTO categoryDto){
-        try {
-            Categoria categoria = service.findById(id);
-        } catch (Exception e) {
-            return this.create(categoryDto);
-        }
-
-        Categoria updated = service.update(mapper.map(categoryDto, Categoria.class), id);
-        return ResponseEntity.ok(convertToDto(updated));
+    private CategoriaResponseDto convertToDto(Categoria categoria){
+        return mapper.map(categoria, CategoriaResponseDto.class);
     }
 
-    private CategoriaResponseDTO convertToDto(Categoria category){
-        CategoriaResponseDTO categoriaDto = mapper.map(category, CategoriaResponseDTO.class);
-        categoriaDto.addLinks(category);
-
-        return categoriaDto;
-    }
-
-    private Categoria convertToEntity(CategoriaRequestDTO categoryDto){
-        Categoria categoria = mapper.map(categoryDto, Categoria.class);
-        Set<Produto> produtos = categoryDto.getProdutos().stream()
-                .map(dto -> mapper.map(dto, Produto.class))
-                .collect(Collectors.toSet());
-
-        categoria.setProdutos(produtos);
-
-        return categoria;
+    private Categoria convertToEntity(@RequestBody CategoriaRequestDto categoriaDto){
+        return mapper.map(categoriaDto, Categoria.class);
     }
 }

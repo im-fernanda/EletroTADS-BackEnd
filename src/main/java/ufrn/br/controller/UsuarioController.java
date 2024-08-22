@@ -1,83 +1,83 @@
-package ufrn.br.controller;
+package com.example.demo.controller;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import ufrn.br.dto.UsuarioRequestDTO;
-import ufrn.br.dto.UsuarioResponseDTO;
-import ufrn.br.model.Usuario;
-import ufrn.br.service.UsuarioService;
+import com.example.demo.domain.Usuario;
+import com.example.demo.dto.UsuarioRequestDto;
+import com.example.demo.dto.UsuarioResponseDto;
+import com.example.demo.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
+
+
 @RestController
 @RequestMapping("/usuarios/")
 @AllArgsConstructor
 public class UsuarioController {
+
     private final UsuarioService service;
     private final ModelMapper mapper;
 
-    @GetMapping
-     public Page<UsuarioResponseDTO> listAll(Pageable pageable) {
-        Page<Usuario> usuariosPage = service.listAll(pageable);
-        return usuariosPage.map(this::convertToDto);
-    }
-
     @PostMapping
-    public ResponseEntity<UsuarioResponseDTO> create(@RequestBody UsuarioRequestDTO userDto){
-        Usuario created = service.create(convertToEntity(userDto));
+    public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioRequestDto usuarioDto) {
+        System.out.println("nome: " + usuarioDto.getUsername());
+        Usuario usuario = convertToEntity(usuarioDto);
+        System.out.println(usuario.getUsername());
+        Usuario created = service.create(usuario);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
-                .path("{id}")
+                .path("/{id}")
                 .buildAndExpand(created.getId())
                 .toUri();
 
         return ResponseEntity.created(location).body(convertToDto(created));
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<UsuarioResponseDTO> getById(@PathVariable("id") Long id){
-        Usuario usuario = service.findById(id);
-        UsuarioResponseDTO usuarioDto = mapper.map(usuario, UsuarioResponseDTO.class);
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDto> update(@PathVariable Long id, @RequestBody UsuarioRequestDto usuarioDto) {
+        try{
+            Usuario usuario = service.findById(id);
+        } catch (Exception e) {
+            return this.create(usuarioDto);
+        }
 
-        return ResponseEntity.ok(usuarioDto);
+        Usuario usuario = convertToEntity(usuarioDto);
+        usuario.setId(id);
+        Usuario updated = service.update(usuario, usuario.getId());
+
+        return ResponseEntity.ok(convertToDto(updated));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<UsuarioResponseDto> findById(@PathVariable Long id) {
+        Usuario usuario = service.findById(id);
+        return ResponseEntity.ok(convertToDto(usuario));
+    }
+
+    @GetMapping
+    public Page<UsuarioResponseDto> findAll(Pageable pageable) {
+        Page<Usuario> page = service.listAll(pageable);
+        return page.map(this::convertToDto);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") Long id){
+    public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<UsuarioResponseDTO> update(@RequestBody UsuarioRequestDTO userDto, @PathVariable("id") Long id){
-        try {
-            Usuario usuario = service.findById(id);
-        } catch (Exception e) {
-            System.out.println("Não fez o update");
-            return this.create(userDto);
-        }
-
-        Usuario usuarioUpdated = service.update(mapper.map(userDto, Usuario.class), id);
-        return ResponseEntity.ok(convertToDto(usuarioUpdated));
+    private UsuarioResponseDto convertToDto(Usuario user){
+        return mapper.map(user, UsuarioResponseDto.class);
     }
 
-
-    private UsuarioResponseDTO convertToDto(Usuario usuarioCreated){
-        UsuarioResponseDTO usuarioResponseDto = mapper.map(usuarioCreated, UsuarioResponseDTO.class);
-        usuarioResponseDto.addLinks(usuarioCreated);
-
-        return usuarioResponseDto;
-    }
-
-    private Usuario convertToEntity(UsuarioRequestDTO userDto){
-        Usuario entityUsuario = mapper.map(userDto, Usuario.class);
-
-        return entityUsuario;
+    private Usuario convertToEntity(@RequestBody UsuarioRequestDto userDto){
+        return mapper.map(userDto, Usuario.class);
     }
 }
