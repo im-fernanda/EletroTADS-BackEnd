@@ -1,6 +1,6 @@
 package ufrn.br.repository;
 
-import ufrn.br.model.Endereco;
+import ufrn.br.domain.Endereco;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

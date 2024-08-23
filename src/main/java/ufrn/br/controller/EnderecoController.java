@@ -1,7 +1,7 @@
 package ufrn.br.controller;
 
-import ufrn.br.model.Endereco;
-import ufrn.br.model.Usuario;
+import ufrn.br.domain.Endereco;
+import ufrn.br.domain.Usuario;
 import ufrn.br.dto.EnderecoRequestDTO;
 import ufrn.br.dto.EnderecoResponseDTO;
 import ufrn.br.service.EnderecoService;

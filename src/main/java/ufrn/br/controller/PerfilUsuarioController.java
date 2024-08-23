@@ -2,8 +2,8 @@ package ufrn.br.controller;
 
 import ufrn.br.dto.PerfilUsuarioRequestDTO;
 import ufrn.br.dto.PerfilUsuarioResponseDTO;
-import ufrn.br.model.PerfilUsuario;
-import ufrn.br.model.Usuario;
+import ufrn.br.domain.PerfilUsuario;
+import ufrn.br.domain.Usuario;
 import ufrn.br.service.PerfilUsuarioService;
 import ufrn.br.service.UsuarioService;
 import lombok.AllArgsConstructor;

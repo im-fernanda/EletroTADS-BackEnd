@@ -2,8 +2,8 @@ package ufrn.br.controller;
 
 import ufrn.br.dto.ProdutoRequestDTO;
 import ufrn.br.dto.ProdutoResponseDTO;
-import ufrn.br.model.Categoria;
-import ufrn.br.model.Produto;
+import ufrn.br.domain.Categoria;
+import ufrn.br.domain.Produto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;

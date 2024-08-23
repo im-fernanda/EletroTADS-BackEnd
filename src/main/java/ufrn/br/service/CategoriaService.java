@@ -1,6 +1,6 @@
 package ufrn.br.service;
 
-import ufrn.br.model.Categoria;
+import ufrn.br.domain.Categoria;
 import ufrn.br.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
 import ufrn.br.service.generic.GenericCrudService;

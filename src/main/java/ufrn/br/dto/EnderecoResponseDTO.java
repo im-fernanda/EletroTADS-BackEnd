@@ -1,7 +1,7 @@
 package ufrn.br.dto;
 
 import ufrn.br.controller.EnderecoController;
-import ufrn.br.model.Endereco;
+import ufrn.br.domain.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package ufrn.br.controller;
 
-import ufrn.br.model.Usuario;
+import ufrn.br.domain.Usuario;
 import ufrn.br.dto.UsuarioRequestDTO;
 import ufrn.br.dto.UsuarioResponseDTO;
 import ufrn.br.service.UsuarioService;

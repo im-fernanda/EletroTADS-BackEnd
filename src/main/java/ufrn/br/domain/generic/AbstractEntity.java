@@ -1,4 +1,4 @@
-package ufrn.br.model.generic;
+package ufrn.br.domain.generic;
 
 import jakarta.persistence.*;
 import lombok.Getter;

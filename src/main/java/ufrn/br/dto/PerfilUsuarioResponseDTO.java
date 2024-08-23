@@ -1,11 +1,7 @@
 package ufrn.br.dto;
 
-import ufrn.br.controller.CategoriaController;
 import ufrn.br.controller.PerfilUsuarioController;
-import ufrn.br.controller.ProdutoController;
-import ufrn.br.model.Categoria;
-import ufrn.br.model.PerfilUsuario;
-import ufrn.br.model.Produto;
+import ufrn.br.domain.PerfilUsuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

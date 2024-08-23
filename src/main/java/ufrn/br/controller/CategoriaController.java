@@ -1,6 +1,6 @@
 package ufrn.br.controller;
 
-import ufrn.br.model.Categoria;
+import ufrn.br.domain.Categoria;
 import ufrn.br.service.CategoriaService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

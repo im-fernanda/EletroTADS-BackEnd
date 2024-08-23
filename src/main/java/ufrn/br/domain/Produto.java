@@ -1,6 +1,6 @@
-package ufrn.br.model;
+package ufrn.br.domain;
 
-import ufrn.br.model.generic.AbstractEntity;
+import ufrn.br.domain.generic.AbstractEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

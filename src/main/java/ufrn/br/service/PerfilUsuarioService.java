@@ -1,6 +1,6 @@
 package ufrn.br.service;
 
-import ufrn.br.model.PerfilUsuario;
+import ufrn.br.domain.PerfilUsuario;
 import ufrn.br.repository.PerfilUsuarioRepository;
 import org.springframework.stereotype.Service;
 import ufrn.br.service.generic.GenericCrudService;

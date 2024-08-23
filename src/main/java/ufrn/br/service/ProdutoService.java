@@ -1,6 +1,6 @@
 package ufrn.br.service;
 
-import ufrn.br.model.Produto;
+import ufrn.br.domain.Produto;
 import ufrn.br.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 import ufrn.br.service.generic.GenericCrudService;
