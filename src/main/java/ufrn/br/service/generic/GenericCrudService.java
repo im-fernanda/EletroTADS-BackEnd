@@ -1,9 +1,10 @@
-package ufrn.br.service;
+package ufrn.br.service.generic;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import ufrn.br.service.interfaces.IService;
 
 import java.util.Optional;
 

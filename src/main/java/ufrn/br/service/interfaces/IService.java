@@ -1,4 +1,4 @@
-package ufrn.br.service;
+package ufrn.br.service.interfaces;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
