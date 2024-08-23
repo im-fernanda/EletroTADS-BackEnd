@@ -48,7 +48,9 @@ public class EnderecoController {
         try{
             Endereco endereco = service.findById(id);
         } catch (Exception e) {
-            return null;
+            Endereco created = service.create(convertToEntity(enderecoDto));
+            return ResponseEntity.ok(convertToDTO(created));
+
         }
 
         Endereco endereco = convertToEntity(enderecoDto);

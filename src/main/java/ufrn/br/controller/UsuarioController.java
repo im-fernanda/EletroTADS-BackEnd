@@ -3,10 +3,8 @@ package ufrn.br.controller;
 import ufrn.br.domain.Endereco;
 import ufrn.br.domain.PerfilUsuario;
 import ufrn.br.domain.Usuario;
-import ufrn.br.dto.EnderecoRequestDTO;
-import ufrn.br.dto.PerfilUsuarioRequestDTO;
-import ufrn.br.dto.UsuarioRequestDTO;
-import ufrn.br.dto.UsuarioResponseDTO;
+import ufrn.br.dto.*;
+import ufrn.br.service.EnderecoService;
 import ufrn.br.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -26,6 +24,7 @@ import java.net.URI;
 public class UsuarioController {
 
     private final UsuarioService service;
+    private final EnderecoService enderecoService;
     private final ModelMapper mapper;
 
     @PostMapping
@@ -64,7 +63,7 @@ public class UsuarioController {
     }
 
     @PostMapping("{id}/perfil/")
-    public ResponseEntity<UsuarioResponseDTO> addEndereco(@PathVariable Long id, @RequestBody PerfilUsuarioRequestDTO perfilDto) {
+    public ResponseEntity<UsuarioResponseDTO> addPerfil(@PathVariable Long id, @RequestBody PerfilUsuarioRequestDTO perfilDto) {
         PerfilUsuario perfil = mapper.map(perfilDto, PerfilUsuario.class);
         Usuario usuario = service.findById(id);
         perfil.setUsuario(usuario);
@@ -103,6 +102,12 @@ public class UsuarioController {
         return ResponseEntity.ok(convertToDto(usuario));
     }
 
+    @GetMapping("{id}/enderecos")
+    public Page<EnderecoResponseDTO> findAllEnderecos(@PathVariable Long id, Pageable pageable) {
+        Page<Endereco> page = enderecoService.listAllEnderecos(id, pageable);
+        return page.map(this::convertToDtoEndereco);
+    }
+
     @GetMapping
     public Page<UsuarioResponseDTO> findAll(Pageable pageable) {
         Page<Usuario> page = service.listAll(pageable);
@@ -117,6 +122,10 @@ public class UsuarioController {
 
     private UsuarioResponseDTO convertToDto(Usuario user){
         return mapper.map(user, UsuarioResponseDTO.class);
+    }
+
+    private EnderecoResponseDTO convertToDtoEndereco(Endereco endereco){
+        return mapper.map(endereco, EnderecoResponseDTO.class);
     }
 
     private Usuario convertToEntity(@RequestBody UsuarioRequestDTO userDto){
