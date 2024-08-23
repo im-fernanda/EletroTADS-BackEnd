@@ -1,9 +1,7 @@
-package com.example.demo.dto;
+package ufrn.br.dto;
 
-import com.example.demo.controller.EnderecoController;
-import com.example.demo.controller.UsuarioController;
-import com.example.demo.domain.Endereco;
-import com.example.demo.domain.Usuario;
+import ufrn.br.controller.EnderecoController;
+import ufrn.br.model.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +12,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnderecoResponseDto extends RepresentationModel<EnderecoResponseDto> {
+public class EnderecoResponseDTO extends RepresentationModel<EnderecoResponseDTO> {
     String rua;
     String numero;
     String bairro;

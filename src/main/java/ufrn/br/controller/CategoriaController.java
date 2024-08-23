@@ -1,13 +1,7 @@
-package com.example.demo.controller;
+package ufrn.br.controller;
 
-import com.example.demo.domain.Categoria;
-import com.example.demo.domain.Produto;
-import com.example.demo.dto.CategoriaRequestDto;
-import com.example.demo.dto.CategoriaResponseDto;
-import com.example.demo.dto.ProdutoRequestDto;
-import com.example.demo.dto.ProdutoResponseDto;
-import com.example.demo.service.CategoriaService;
-import com.example.demo.service.ProdutoService;
+import ufrn.br.model.Categoria;
+import ufrn.br.service.CategoriaService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -16,10 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ufrn.br.dto.CategoriaRequestDTO;
+import ufrn.br.dto.CategoriaResponseDTO;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categorias/")
@@ -30,7 +24,7 @@ public class CategoriaController {
     private final ModelMapper mapper;
 
     @PostMapping
-    public ResponseEntity<CategoriaResponseDto> create(@RequestBody CategoriaRequestDto categoriaDto) {
+    public ResponseEntity<CategoriaResponseDTO> create(@RequestBody CategoriaRequestDTO categoriaDto) {
         Categoria categoria = convertToEntity(categoriaDto);
         Categoria created = service.create(categoria);
 
@@ -44,7 +38,7 @@ public class CategoriaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaResponseDto> update(@PathVariable Long id, @RequestBody CategoriaRequestDto categoriaDto) {
+    public ResponseEntity<CategoriaResponseDTO> update(@PathVariable Long id, @RequestBody CategoriaRequestDTO categoriaDto) {
         try{
             Categoria categoria = service.findById(id);
         } catch (Exception e) {
@@ -60,13 +54,13 @@ public class CategoriaController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<CategoriaResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<CategoriaResponseDTO> findById(@PathVariable Long id) {
         Categoria categoria = service.findById(id);
         return ResponseEntity.ok(convertToDto(categoria));
     }
 
     @GetMapping
-    public Page<CategoriaResponseDto> listAll(Pageable pageable) {
+    public Page<CategoriaResponseDTO> listAll(Pageable pageable) {
         Page<Categoria> page = service.listAll(pageable);
         return page.map(this::convertToDto);
     }
@@ -77,11 +71,11 @@ public class CategoriaController {
         service.deleteById(id);
     }
 
-    private CategoriaResponseDto convertToDto(Categoria categoria){
-        return mapper.map(categoria, CategoriaResponseDto.class);
+    private CategoriaResponseDTO convertToDto(Categoria categoria){
+        return mapper.map(categoria, CategoriaResponseDTO.class);
     }
 
-    private Categoria convertToEntity(@RequestBody CategoriaRequestDto categoriaDto){
+    private Categoria convertToEntity(@RequestBody CategoriaRequestDTO categoriaDto){
         return mapper.map(categoriaDto, Categoria.class);
     }
 }

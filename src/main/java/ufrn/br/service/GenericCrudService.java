@@ -1,19 +1,17 @@
-package com.example.demo.service;
+package ufrn.br.service;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.sql.ast.tree.expression.Over;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
-public abstract class GenericService<T, ID, REPO extends JpaRepository<T, ID>> implements IService<T, ID> {
+public abstract class GenericCrudService<T, ID, REPO extends JpaRepository<T, ID>> implements IService<T, ID> {
 
     private REPO repository;
 
-    public GenericService(REPO repository) {
+    public GenericCrudService(REPO repository) {
         this.repository = repository;
     }
 

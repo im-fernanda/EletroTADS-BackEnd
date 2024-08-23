@@ -1,11 +1,11 @@
-package com.example.demo.controller;
+package ufrn.br.controller;
 
-import com.example.demo.domain.PerfilUsuario;
-import com.example.demo.domain.Usuario;
-import com.example.demo.dto.PerfilUsuarioRequestDto;
-import com.example.demo.dto.PerfilUsuarioResponseDto;
-import com.example.demo.service.PerfilUsuarioService;
-import com.example.demo.service.UsuarioService;
+import ufrn.br.dto.PerfilUsuarioRequestDTO;
+import ufrn.br.dto.PerfilUsuarioResponseDTO;
+import ufrn.br.model.PerfilUsuario;
+import ufrn.br.model.Usuario;
+import ufrn.br.service.PerfilUsuarioService;
+import ufrn.br.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ public class PerfilUsuarioController {
     private final ModelMapper mapper;
 
     @PostMapping
-    public ResponseEntity<PerfilUsuarioResponseDto> create(@RequestBody PerfilUsuarioRequestDto perfilUsuarioDto) {
+    public ResponseEntity<PerfilUsuarioResponseDTO> create(@RequestBody PerfilUsuarioRequestDTO perfilUsuarioDto) {
         Usuario usuario = usuarioService.findById(perfilUsuarioDto.getId_usuario());
         PerfilUsuario perfil = convertToEntity(perfilUsuarioDto);
         perfil.setUsuario(usuario);
@@ -44,7 +44,7 @@ public class PerfilUsuarioController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<PerfilUsuarioResponseDto> update(@PathVariable Long id, @RequestBody PerfilUsuarioRequestDto perfilDto) {
+    public ResponseEntity<PerfilUsuarioResponseDTO> update(@PathVariable Long id, @RequestBody PerfilUsuarioRequestDTO perfilDto) {
         try{
             PerfilUsuario perfil = service.findById(id);
         } catch (Exception e) {
@@ -59,13 +59,13 @@ public class PerfilUsuarioController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<PerfilUsuarioResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<PerfilUsuarioResponseDTO> findById(@PathVariable Long id) {
         PerfilUsuario perfil = service.findById(id);
         return ResponseEntity.ok(convertToDto(perfil));
     }
 
     @GetMapping
-    public Page<PerfilUsuarioResponseDto> listAll(Pageable pageable) {
+    public Page<PerfilUsuarioResponseDTO> listAll(Pageable pageable) {
         Page<PerfilUsuario> page = service.listAll(pageable);
         return page.map(this::convertToDto);
     }
@@ -76,11 +76,11 @@ public class PerfilUsuarioController {
         service.deleteById(id);
     }
 
-    private PerfilUsuarioResponseDto convertToDto(PerfilUsuario perfil){
-        return mapper.map(perfil, PerfilUsuarioResponseDto.class);
+    private PerfilUsuarioResponseDTO convertToDto(PerfilUsuario perfil){
+        return mapper.map(perfil, PerfilUsuarioResponseDTO.class);
     }
 
-    private PerfilUsuario convertToEntity(@RequestBody PerfilUsuarioRequestDto perfilDto){
+    private PerfilUsuario convertToEntity(@RequestBody PerfilUsuarioRequestDTO perfilDto){
         return mapper.map(perfilDto, PerfilUsuario.class);
     }
 

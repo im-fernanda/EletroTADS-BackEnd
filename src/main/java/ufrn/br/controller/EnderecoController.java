@@ -1,11 +1,11 @@
-package com.example.demo.controller;
+package ufrn.br.controller;
 
-import com.example.demo.domain.Endereco;
-import com.example.demo.domain.Usuario;
-import com.example.demo.dto.EnderecoRequestDto;
-import com.example.demo.dto.EnderecoResponseDto;
-import com.example.demo.service.EnderecoService;
-import com.example.demo.service.UsuarioService;
+import ufrn.br.model.Endereco;
+import ufrn.br.model.Usuario;
+import ufrn.br.dto.EnderecoRequestDTO;
+import ufrn.br.dto.EnderecoResponseDTO;
+import ufrn.br.service.EnderecoService;
+import ufrn.br.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.net.URI;
 
 @RestController
@@ -26,7 +27,7 @@ public class EnderecoController {
     private final ModelMapper mapper;
 
     @PostMapping
-    public ResponseEntity<EnderecoResponseDto> create(@RequestBody EnderecoRequestDto enderecoDto) {
+    public ResponseEntity<EnderecoResponseDTO> create(@RequestBody EnderecoRequestDTO enderecoDto) {
         Usuario usuario = usuarioService.findById(enderecoDto.getId_usuario());
         Endereco endereco = convertToEntity(enderecoDto);
         endereco.setUsuario(usuario);
@@ -39,11 +40,11 @@ public class EnderecoController {
                 .buildAndExpand(created.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(convertToDto(created));
+        return ResponseEntity.created(location).body(convertToDTO(created));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EnderecoResponseDto> update(@PathVariable Long id, @RequestBody EnderecoRequestDto enderecoDto) {
+    public ResponseEntity<EnderecoResponseDTO> update(@PathVariable Long id, @RequestBody EnderecoRequestDTO enderecoDto) {
         try{
             Endereco endereco = service.findById(id);
         } catch (Exception e) {
@@ -54,19 +55,19 @@ public class EnderecoController {
         endereco.setId(id);
         Endereco updated = service.update(endereco, endereco.getId());
 
-        return ResponseEntity.ok(convertToDto(updated));
+        return ResponseEntity.ok(convertToDTO(updated));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<EnderecoResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<EnderecoResponseDTO> findById(@PathVariable Long id) {
         Endereco endereco = service.findById(id);
-        return ResponseEntity.ok(convertToDto(endereco));
+        return ResponseEntity.ok(convertToDTO(endereco));
     }
 
     @GetMapping
-    public Page<EnderecoResponseDto> listAll(Pageable pageable) {
+    public Page<EnderecoResponseDTO> listAll(Pageable pageable) {
         Page<Endereco> page = service.listAll(pageable);
-        return page.map(this::convertToDto);
+        return page.map(this::convertToDTO);
     }
 
     @DeleteMapping("{id}")
@@ -75,11 +76,11 @@ public class EnderecoController {
         service.deleteById(id);
     }
 
-    private EnderecoResponseDto convertToDto(Endereco endereco){
-        return mapper.map(endereco, EnderecoResponseDto.class);
+    private EnderecoResponseDTO convertToDTO(Endereco endereco){
+        return mapper.map(endereco, EnderecoResponseDTO.class);
     }
 
-    private Endereco convertToEntity(@RequestBody EnderecoRequestDto enderecoDto){
+    private Endereco convertToEntity(@RequestBody EnderecoRequestDTO enderecoDto){
         return mapper.map(enderecoDto, Endereco.class);
     }
 }

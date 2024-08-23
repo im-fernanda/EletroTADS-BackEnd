@@ -1,6 +1,6 @@
-package com.example.demo.domain;
+package ufrn.br.model;
 
-import com.example.demo.domain.generic.AbstractEntity;
+import ufrn.br.model.generic.AbstractEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +10,6 @@ import org.hibernate.annotations.SQLRestriction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor

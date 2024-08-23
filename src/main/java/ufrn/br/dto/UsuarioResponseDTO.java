@@ -1,10 +1,10 @@
-package com.example.demo.dto;
+package ufrn.br.dto;
 
-import com.example.demo.controller.EnderecoController;
-import com.example.demo.controller.PerfilUsuarioController;
-import com.example.demo.controller.UsuarioController;
-import com.example.demo.domain.Endereco;
-import com.example.demo.domain.Usuario;
+import ufrn.br.controller.EnderecoController;
+import ufrn.br.controller.PerfilUsuarioController;
+import ufrn.br.controller.UsuarioController;
+import ufrn.br.model.Endereco;
+import ufrn.br.model.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,11 +17,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioResponseDto extends RepresentationModel<UsuarioResponseDto> {
+public class UsuarioResponseDTO extends RepresentationModel<UsuarioResponseDTO> {
     String username;
     Boolean isAdmin;
-    PerfilUsuarioResponseDto perfilUsuario;
-    List<EnderecoResponseDto> enderecos;
+    PerfilUsuarioResponseDTO perfilUsuario;
+    List<EnderecoResponseDTO> enderecos;
 
     public void addLinks(Usuario user){
         this.add(linkTo(UsuarioController.class).slash(user.getId()).withSelfRel());

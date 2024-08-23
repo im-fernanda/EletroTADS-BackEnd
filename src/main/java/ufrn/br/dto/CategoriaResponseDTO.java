@@ -1,22 +1,20 @@
-package com.example.demo.dto;
+package ufrn.br.dto;
 
-import com.example.demo.controller.CategoriaController;
-import com.example.demo.controller.ProdutoController;
-import com.example.demo.domain.Categoria;
-import com.example.demo.domain.Produto;
+import org.springframework.hateoas.RepresentationModel;
+import ufrn.br.controller.CategoriaController;
+import ufrn.br.controller.ProdutoController;
+import ufrn.br.model.Categoria;
+import ufrn.br.model.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.hateoas.RepresentationModel;
-
-import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriaResponseDto extends RepresentationModel<CategoriaResponseDto> {
+public class CategoriaResponseDTO extends RepresentationModel<CategoriaResponseDTO> {
     String nome;
     // List<ProdutoResponseDto> produtos;
 

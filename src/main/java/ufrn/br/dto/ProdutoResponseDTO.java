@@ -1,9 +1,9 @@
-package com.example.demo.dto;
+package ufrn.br.dto;
 
-import com.example.demo.controller.CategoriaController;
-import com.example.demo.controller.ProdutoController;
-import com.example.demo.domain.Categoria;
-import com.example.demo.domain.Produto;
+import ufrn.br.controller.CategoriaController;
+import ufrn.br.controller.ProdutoController;
+import ufrn.br.model.Categoria;
+import ufrn.br.model.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,12 +16,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProdutoResponseDto extends RepresentationModel<ProdutoResponseDto> {
+public class ProdutoResponseDTO extends RepresentationModel<ProdutoResponseDTO> {
     String nome;
     String descricao;
     float preco;
     int quantidade;
-    List<CategoriaResponseDto> categorias;
+    List<CategoriaResponseDTO> categorias;
 
     public void addLinks(Produto produto) {
         this.add(linkTo(ProdutoController.class).slash(produto.getId()).withSelfRel());

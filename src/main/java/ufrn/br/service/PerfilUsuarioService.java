@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package ufrn.br.service;
 
-import com.example.demo.domain.PerfilUsuario;
-import com.example.demo.repository.PerfilUsuarioRepository;
+import ufrn.br.model.PerfilUsuario;
+import ufrn.br.repository.PerfilUsuarioRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PerfilUsuarioService extends GenericService<PerfilUsuario, Long, PerfilUsuarioRepository> {
+public class PerfilUsuarioService extends GenericCrudService<PerfilUsuario, Long, PerfilUsuarioRepository> {
     public PerfilUsuarioService(PerfilUsuarioRepository repository) {
         super(repository);
     }

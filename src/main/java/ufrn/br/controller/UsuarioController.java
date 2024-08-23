@@ -1,9 +1,9 @@
-package com.example.demo.controller;
+package ufrn.br.controller;
 
-import com.example.demo.domain.Usuario;
-import com.example.demo.dto.UsuarioRequestDto;
-import com.example.demo.dto.UsuarioResponseDto;
-import com.example.demo.service.UsuarioService;
+import ufrn.br.model.Usuario;
+import ufrn.br.dto.UsuarioRequestDTO;
+import ufrn.br.dto.UsuarioResponseDTO;
+import ufrn.br.service.UsuarioService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -25,7 +25,7 @@ public class UsuarioController {
     private final ModelMapper mapper;
 
     @PostMapping
-    public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioRequestDto usuarioDto) {
+    public ResponseEntity<UsuarioResponseDTO> create(@RequestBody UsuarioRequestDTO usuarioDto) {
         System.out.println("nome: " + usuarioDto.getUsername());
         Usuario usuario = convertToEntity(usuarioDto);
         System.out.println(usuario.getUsername());
@@ -41,7 +41,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDto> update(@PathVariable Long id, @RequestBody UsuarioRequestDto usuarioDto) {
+    public ResponseEntity<UsuarioResponseDTO> update(@PathVariable Long id, @RequestBody UsuarioRequestDTO usuarioDto) {
         try{
             Usuario usuario = service.findById(id);
         } catch (Exception e) {
@@ -56,13 +56,13 @@ public class UsuarioController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<UsuarioResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponseDTO> findById(@PathVariable Long id) {
         Usuario usuario = service.findById(id);
         return ResponseEntity.ok(convertToDto(usuario));
     }
 
     @GetMapping
-    public Page<UsuarioResponseDto> findAll(Pageable pageable) {
+    public Page<UsuarioResponseDTO> findAll(Pageable pageable) {
         Page<Usuario> page = service.listAll(pageable);
         return page.map(this::convertToDto);
     }
@@ -73,11 +73,11 @@ public class UsuarioController {
         service.deleteById(id);
     }
 
-    private UsuarioResponseDto convertToDto(Usuario user){
-        return mapper.map(user, UsuarioResponseDto.class);
+    private UsuarioResponseDTO convertToDto(Usuario user){
+        return mapper.map(user, UsuarioResponseDTO.class);
     }
 
-    private Usuario convertToEntity(@RequestBody UsuarioRequestDto userDto){
+    private Usuario convertToEntity(@RequestBody UsuarioRequestDTO userDto){
         return mapper.map(userDto, Usuario.class);
     }
 }

@@ -1,11 +1,11 @@
-package com.example.demo.dto;
+package ufrn.br.dto;
 
-import com.example.demo.controller.CategoriaController;
-import com.example.demo.controller.PerfilUsuarioController;
-import com.example.demo.controller.ProdutoController;
-import com.example.demo.domain.Categoria;
-import com.example.demo.domain.PerfilUsuario;
-import com.example.demo.domain.Produto;
+import ufrn.br.controller.CategoriaController;
+import ufrn.br.controller.PerfilUsuarioController;
+import ufrn.br.controller.ProdutoController;
+import ufrn.br.model.Categoria;
+import ufrn.br.model.PerfilUsuario;
+import ufrn.br.model.Produto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PerfilUsuarioResponseDto extends RepresentationModel<PerfilUsuarioResponseDto> {
+public class PerfilUsuarioResponseDTO extends RepresentationModel<PerfilUsuarioResponseDTO> {
     String nome;
     String genero;
     String dataNascimento;

@@ -1,17 +1,9 @@
-package com.example.demo.controller;
+package ufrn.br.controller;
 
-import com.example.demo.domain.Categoria;
-import com.example.demo.domain.Endereco;
-import com.example.demo.domain.Produto;
-import com.example.demo.domain.Usuario;
-import com.example.demo.dto.EnderecoRequestDto;
-import com.example.demo.dto.EnderecoResponseDto;
-import com.example.demo.dto.ProdutoRequestDto;
-import com.example.demo.dto.ProdutoResponseDto;
-import com.example.demo.service.CategoriaService;
-import com.example.demo.service.EnderecoService;
-import com.example.demo.service.ProdutoService;
-import com.example.demo.service.UsuarioService;
+import ufrn.br.dto.ProdutoRequestDTO;
+import ufrn.br.dto.ProdutoResponseDTO;
+import ufrn.br.model.Categoria;
+import ufrn.br.model.Produto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -20,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ufrn.br.service.ProdutoService;
+import ufrn.br.service.CategoriaService;
 
 import java.net.URI;
 import java.util.List;
@@ -36,7 +30,7 @@ public class ProdutoController {
     private final CategoriaService categoriaService;
 
     @PostMapping
-    public ResponseEntity<ProdutoResponseDto> create(@RequestBody ProdutoRequestDto produtoDto) {
+    public ResponseEntity<ProdutoResponseDTO> create(@RequestBody ProdutoRequestDTO produtoDto) {
         Produto produto = convertToEntity(produtoDto);
 
         List<Categoria> categorias = produtoDto.getIds_categorias().stream()
@@ -60,7 +54,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProdutoResponseDto> update(@PathVariable Long id, @RequestBody ProdutoRequestDto produtoDto) {
+    public ResponseEntity<ProdutoResponseDTO> update(@PathVariable Long id, @RequestBody ProdutoRequestDTO produtoDto) {
         try{
             Produto produto = service.findById(id);
         } catch (Exception e) {
@@ -84,13 +78,13 @@ public class ProdutoController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ProdutoResponseDto> findById(@PathVariable Long id) {
+    public ResponseEntity<ProdutoResponseDTO> findById(@PathVariable Long id) {
         Produto produto = service.findById(id);
         return ResponseEntity.ok(convertToDto(produto));
     }
 
     @GetMapping
-    public Page<ProdutoResponseDto> listAll(Pageable pageable) {
+    public Page<ProdutoResponseDTO> listAll(Pageable pageable) {
         Page<Produto> page = service.listAll(pageable);
         return page.map(this::convertToDto);
     }
@@ -101,11 +95,11 @@ public class ProdutoController {
         service.deleteById(id);
     }
 
-    private ProdutoResponseDto convertToDto(Produto produto){
-        return mapper.map(produto, ProdutoResponseDto.class);
+    private ProdutoResponseDTO convertToDto(Produto produto){
+        return mapper.map(produto, ProdutoResponseDTO.class);
     }
 
-    private Produto convertToEntity(@RequestBody ProdutoRequestDto produtoDto){
+    private Produto convertToEntity(@RequestBody ProdutoRequestDTO produtoDto){
         return mapper.map(produtoDto, Produto.class);
     }
 }

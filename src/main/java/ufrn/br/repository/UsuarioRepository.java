@@ -1,6 +1,6 @@
-package com.example.demo.repository;
+package ufrn.br.repository;
 
-import com.example.demo.domain.Usuario;
+import ufrn.br.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
