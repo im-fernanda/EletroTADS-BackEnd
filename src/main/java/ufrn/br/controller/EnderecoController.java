@@ -26,7 +26,7 @@ public class EnderecoController {
     private final UsuarioService usuarioService;
     private final ModelMapper mapper;
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<EnderecoResponseDTO> create(@RequestBody EnderecoRequestDTO enderecoDto) {
         Usuario usuario = usuarioService.findById(enderecoDto.getId_usuario());
         Endereco endereco = convertToEntity(enderecoDto);
@@ -41,14 +41,14 @@ public class EnderecoController {
                 .toUri();
 
         return ResponseEntity.created(location).body(convertToDTO(created));
-    }
+    }*/
 
     @PutMapping("/{id}")
     public ResponseEntity<EnderecoResponseDTO> update(@PathVariable Long id, @RequestBody EnderecoRequestDTO enderecoDto) {
         try{
             Endereco endereco = service.findById(id);
         } catch (Exception e) {
-            return this.create(enderecoDto);
+            return null;
         }
 
         Endereco endereco = convertToEntity(enderecoDto);

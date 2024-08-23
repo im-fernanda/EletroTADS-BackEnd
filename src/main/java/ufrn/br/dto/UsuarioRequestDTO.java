@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class UsuarioRequestDTO {
     String username;
     String senha;
-    Boolean isAdmin;
+    Boolean isAdmin = false;
 }

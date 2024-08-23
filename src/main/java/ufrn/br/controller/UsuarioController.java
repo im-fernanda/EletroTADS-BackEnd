@@ -1,6 +1,10 @@
 package ufrn.br.controller;
 
+import ufrn.br.domain.Endereco;
+import ufrn.br.domain.PerfilUsuario;
 import ufrn.br.domain.Usuario;
+import ufrn.br.dto.EnderecoRequestDTO;
+import ufrn.br.dto.PerfilUsuarioRequestDTO;
 import ufrn.br.dto.UsuarioRequestDTO;
 import ufrn.br.dto.UsuarioResponseDTO;
 import ufrn.br.service.UsuarioService;
@@ -38,6 +42,44 @@ public class UsuarioController {
                 .toUri();
 
         return ResponseEntity.created(location).body(convertToDto(created));
+    }
+
+    @PostMapping("{id}/enderecos/")
+    public ResponseEntity<UsuarioResponseDTO> addEndereco(@PathVariable Long id, @RequestBody EnderecoRequestDTO enderecoDto) {
+        Endereco endereco = mapper.map(enderecoDto, Endereco.class);
+        Usuario usuario = service.findById(id);
+        endereco.setUsuario(usuario);
+        usuario.setId(id);
+        usuario.getEnderecos().add(endereco);
+
+        Usuario updated = service.update(usuario, usuario.getId());
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(updated.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(convertToDto(updated));
+    }
+
+    @PostMapping("{id}/perfil/")
+    public ResponseEntity<UsuarioResponseDTO> addEndereco(@PathVariable Long id, @RequestBody PerfilUsuarioRequestDTO perfilDto) {
+        PerfilUsuario perfil = mapper.map(perfilDto, PerfilUsuario.class);
+        Usuario usuario = service.findById(id);
+        perfil.setUsuario(usuario);
+        usuario.setId(id);
+        usuario.setPerfilUsuario(perfil);
+
+        Usuario updated = service.update(usuario, usuario.getId());
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(updated.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(convertToDto(updated));
     }
 
     @PutMapping("/{id}")

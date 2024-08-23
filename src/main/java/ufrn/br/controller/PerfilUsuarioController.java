@@ -26,7 +26,7 @@ public class PerfilUsuarioController {
     private final UsuarioService usuarioService;
     private final ModelMapper mapper;
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<PerfilUsuarioResponseDTO> create(@RequestBody PerfilUsuarioRequestDTO perfilUsuarioDto) {
         Usuario usuario = usuarioService.findById(perfilUsuarioDto.getId_usuario());
         PerfilUsuario perfil = convertToEntity(perfilUsuarioDto);
@@ -56,7 +56,7 @@ public class PerfilUsuarioController {
         PerfilUsuario updated = service.update(perfil, perfil.getId());
 
         return ResponseEntity.ok(convertToDto(updated));
-    }
+    }*/
 
     @GetMapping("{id}")
     public ResponseEntity<PerfilUsuarioResponseDTO> findById(@PathVariable Long id) {
