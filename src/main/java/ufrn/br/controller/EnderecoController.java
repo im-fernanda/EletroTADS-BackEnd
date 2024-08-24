@@ -20,6 +20,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/enderecos/")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class EnderecoController {
 
     private final EnderecoService service;

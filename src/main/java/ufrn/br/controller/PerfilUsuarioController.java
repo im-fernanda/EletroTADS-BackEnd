@@ -20,6 +20,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/perfil/")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class PerfilUsuarioController {
 
     private final PerfilUsuarioService service;

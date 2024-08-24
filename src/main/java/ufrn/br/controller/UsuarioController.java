@@ -21,6 +21,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("/usuarios/")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
     private final UsuarioService service;
