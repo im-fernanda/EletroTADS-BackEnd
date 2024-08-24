@@ -30,14 +30,14 @@ public class SecurityUser extends AbstractEntity implements UserDetails {
 
     @OneToOne (cascade = CascadeType.ALL)
     @MapsId
-    @JoinColumn(name = "pessoa_id")
+    @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
     @Column(unique = true)
     private String username;
 
     @Column
-    private String password;
+    private String senha;
 
 
     @Override
@@ -51,7 +51,7 @@ public class SecurityUser extends AbstractEntity implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.password;
+        return this.senha;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class AuthenticationController {
     public String getToken(@RequestBody LoginDTO loginDto){
         Authentication authentication = authenticationManager
                 .authenticate(
-                        new UsernamePasswordAuthenticationToken(loginDto.username(), loginDto.password())
+                        new UsernamePasswordAuthenticationToken(loginDto.username(), loginDto.senha())
                 );
 
         return service.generateToken(authentication);

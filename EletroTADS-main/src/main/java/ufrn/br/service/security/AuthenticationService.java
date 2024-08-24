@@ -25,7 +25,7 @@ public class AuthenticationService implements UserDetailsService {
         if(credencials.isPresent()){
             return credencials.get();
         } else {
-            throw new UsernameNotFoundException("Usuário não cadastrado com username: " + username);
+            throw new UsernameNotFoundException("Usuário com username: " + username + " não cadastrado");
         }
     }
 }

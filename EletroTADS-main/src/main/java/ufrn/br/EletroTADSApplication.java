@@ -61,7 +61,7 @@ public class EletroTADSApplication {
         SecurityUser securityUser = new SecurityUser();
         securityUser.setUsuario(u);
         securityUser.setUsername("admin");
-        securityUser.setPassword(encoder.encode("admin"));
+        securityUser.setSenha(encoder.encode("admin"));
 
         securityUserRerpository.save(securityUser);
     }
