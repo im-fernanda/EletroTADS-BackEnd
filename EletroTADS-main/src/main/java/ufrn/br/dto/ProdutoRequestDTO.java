@@ -15,4 +15,5 @@ public class ProdutoRequestDTO {
     float preco;
     int estoque;
     List<Long> ids_categorias;
+    List<String> nomes_categorias;
 }

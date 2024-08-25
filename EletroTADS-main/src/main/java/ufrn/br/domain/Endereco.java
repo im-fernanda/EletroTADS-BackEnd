@@ -34,7 +34,7 @@ public class Endereco extends AbstractEntity {
     @NotBlank (message = "O estado não pode estar em braco")
     String uf;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public abstract class GenericCrudService<T, ID, REPO extends JpaRepository<T, ID>> implements IService<T, ID> {
 
-    private REPO repository;
+    protected REPO repository;
 
     public GenericCrudService(REPO repository) {
         this.repository = repository;

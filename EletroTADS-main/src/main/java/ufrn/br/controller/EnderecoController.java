@@ -20,13 +20,14 @@ import java.net.URI;
 @RestController
 @RequestMapping("/enderecos/")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200/")
 public class EnderecoController {
 
     private final EnderecoService service;
     private final UsuarioService usuarioService;
     private final ModelMapper mapper;
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<EnderecoResponseDTO> create(@RequestBody EnderecoRequestDTO enderecoDto) {
         Usuario usuario = usuarioService.findById(enderecoDto.getId_usuario());
         Endereco endereco = convertToEntity(enderecoDto);
@@ -41,14 +42,16 @@ public class EnderecoController {
                 .toUri();
 
         return ResponseEntity.created(location).body(convertToDTO(created));
-    }
+    }*/
 
     @PutMapping("/{id}")
     public ResponseEntity<EnderecoResponseDTO> update(@PathVariable Long id, @RequestBody EnderecoRequestDTO enderecoDto) {
         try{
             Endereco endereco = service.findById(id);
         } catch (Exception e) {
-            return this.create(enderecoDto);
+            Endereco created = service.create(convertToEntity(enderecoDto));
+            return ResponseEntity.ok(convertToDTO(created));
+
         }
 
         Endereco endereco = convertToEntity(enderecoDto);

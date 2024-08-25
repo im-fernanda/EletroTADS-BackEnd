@@ -16,7 +16,7 @@ public class EnderecoService extends GenericCrudService<Endereco, Long, Endereco
         enderecoRepository = repository;
     }
 
-    public Page<Endereco> listAllEnderecos(Pageable pageable) {
-        return enderecoRepository.listAllByUser(pageable);
+    public Page<Endereco> listAllEnderecos(Long id, Pageable pageable) {
+        return enderecoRepository.listAllByUser(id, pageable);
     }
 }

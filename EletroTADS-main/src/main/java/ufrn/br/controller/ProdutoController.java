@@ -22,19 +22,21 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/produtos/")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200/")
 public class ProdutoController {
+
+    private final ModelMapper mapper;
 
     private final ProdutoService service;
     private final CategoriaService usuarioService;
-    private final ModelMapper mapper;
     private final CategoriaService categoriaService;
 
     @PostMapping
     public ResponseEntity<ProdutoResponseDTO> create(@RequestBody ProdutoRequestDTO produtoDto) {
         Produto produto = convertToEntity(produtoDto);
 
-        List<Categoria> categorias = produtoDto.getIds_categorias().stream()
-                .map(categoriaService::findById)
+        List<Categoria> categorias = produtoDto.getNomes_categorias().stream()
+                .map(categoriaService::findByNome)
                 .collect(Collectors.toList());
 
         produto.setCategorias(categorias);
@@ -42,7 +44,6 @@ public class ProdutoController {
 
         categorias.forEach(categoria -> categoria.getProdutos().add(created));
         categorias.forEach(categoriaService::create);
-
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -64,8 +65,8 @@ public class ProdutoController {
         Produto produto = convertToEntity(produtoDto);
         produto.setId(id);
 
-        List<Categoria> categorias = produtoDto.getIds_categorias().stream()
-                .map(categoriaService::findById)
+        List<Categoria> categorias = produtoDto.getNomes_categorias().stream()
+                .map(categoriaService::findByNome)
                 .collect(Collectors.toList());
 
         produto.setCategorias(categorias);
