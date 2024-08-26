@@ -103,7 +103,7 @@ public class UsuarioController {
         return ResponseEntity.ok(convertToDto(usuario));
     }
 
-    @GetMapping("{id}/enderecos")
+    @GetMapping("{id}/enderecos/")
     public Page<EnderecoResponseDTO> findAllEnderecos(@PathVariable Long id, Pageable pageable) {
         Page<Endereco> page = enderecoService.listAllEnderecos(id, pageable);
         return page.map(this::convertToDtoEndereco);

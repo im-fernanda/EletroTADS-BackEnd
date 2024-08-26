@@ -41,22 +41,9 @@ public class EletroTADSApplication {
     public void started() {
         Usuario u = new Usuario();
 
-        u.setUsername("Joao");
-        u.setSenha("123456");
+        u.setUsername("Luan");
+        u.setSenha("123");
         u.setIsAdmin(true);
-
-        Endereco e = new Endereco();
-        e.setRua("Rua Tal");
-        e.setNumero("10");
-        e.setBairro("Bairro Tal");
-        e.setCidade("Cidade Tal");
-        e.setUf("Uf Tal");
-        e.setUsuario(u);
-
-        List<Endereco> enderecos = new ArrayList<>();
-        enderecos.add(e);
-
-        u.setEnderecos(enderecos);
 
         SecurityUser securityUser = new SecurityUser();
         securityUser.setUsuario(u);
