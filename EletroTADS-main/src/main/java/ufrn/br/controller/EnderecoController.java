@@ -80,7 +80,9 @@ public class EnderecoController {
     }
 
     private EnderecoResponseDTO convertToDTO(Endereco endereco){
-        return mapper.map(endereco, EnderecoResponseDTO.class);
+        EnderecoResponseDTO enderecoDto = mapper.map(endereco, EnderecoResponseDTO.class);
+        enderecoDto.addLinks(endereco);
+        return enderecoDto;
     }
 
     private Endereco convertToEntity(@RequestBody EnderecoRequestDTO enderecoDto){

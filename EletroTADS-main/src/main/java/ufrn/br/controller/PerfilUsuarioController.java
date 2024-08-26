@@ -78,7 +78,9 @@ public class PerfilUsuarioController {
     }
 
     private PerfilUsuarioResponseDTO convertToDto(PerfilUsuario perfil){
-        return mapper.map(perfil, PerfilUsuarioResponseDTO.class);
+        PerfilUsuarioResponseDTO perfilDto = mapper.map(perfil, PerfilUsuarioResponseDTO.class);
+        perfilDto.addLinks(perfil);
+        return perfilDto;
     }
 
     private PerfilUsuario convertToEntity(@RequestBody PerfilUsuarioRequestDTO perfilDto){

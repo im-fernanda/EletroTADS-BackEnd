@@ -73,7 +73,9 @@ public class CategoriaController {
     }
 
     private CategoriaResponseDTO convertToDto(Categoria categoria){
-        return mapper.map(categoria, CategoriaResponseDTO.class);
+        CategoriaResponseDTO categoriaDto = mapper.map(categoria, CategoriaResponseDTO.class);
+        categoriaDto.addLinks(categoria);
+        return categoriaDto;
     }
 
     private Categoria convertToEntity(@RequestBody CategoriaRequestDTO categoriaDto){

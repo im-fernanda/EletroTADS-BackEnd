@@ -1,9 +1,12 @@
 package ufrn.br.controller;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ufrn.br.domain.Endereco;
 import ufrn.br.domain.PerfilUsuario;
+import ufrn.br.domain.SecurityUser;
 import ufrn.br.domain.Usuario;
 import ufrn.br.dto.*;
+import ufrn.br.repository.security.SecurityUserRepository;
 import ufrn.br.service.EnderecoService;
 import ufrn.br.service.UsuarioService;
 import lombok.AllArgsConstructor;
@@ -24,6 +27,8 @@ import java.net.URI;
 @CrossOrigin(origins = "http://localhost:4200/")
 public class UsuarioController {
 
+    private final SecurityUserRepository securityRepository;
+    private final BCryptPasswordEncoder encoder;
     private final UsuarioService service;
     private final EnderecoService enderecoService;
     private final ModelMapper mapper;
@@ -34,6 +39,13 @@ public class UsuarioController {
         Usuario usuario = convertToEntity(usuarioDto);
         System.out.println(usuario.getUsername());
         Usuario created = service.create(usuario);
+
+        SecurityUser securityUser = new SecurityUser();
+        securityUser.setUsuario(created);
+        securityUser.setUsername(created.getUsername());
+        securityUser.setSenha(encoder.encode(created.getSenha()));
+
+        securityRepository.save(securityUser);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -122,11 +134,15 @@ public class UsuarioController {
     }
 
     private UsuarioResponseDTO convertToDto(Usuario user){
-        return mapper.map(user, UsuarioResponseDTO.class);
+        UsuarioResponseDTO usuarioDto = mapper.map(user, UsuarioResponseDTO.class);
+        usuarioDto.addLinks(user);
+        return usuarioDto;
     }
 
     private EnderecoResponseDTO convertToDtoEndereco(Endereco endereco){
-        return mapper.map(endereco, EnderecoResponseDTO.class);
+        EnderecoResponseDTO enderecoDto = mapper.map(endereco, EnderecoResponseDTO.class);
+        enderecoDto.addLinks(endereco);
+        return enderecoDto;
     }
 
     private Usuario convertToEntity(@RequestBody UsuarioRequestDTO userDto){

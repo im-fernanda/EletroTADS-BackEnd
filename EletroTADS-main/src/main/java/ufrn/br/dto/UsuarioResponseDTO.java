@@ -25,7 +25,9 @@ public class UsuarioResponseDTO extends RepresentationModel<UsuarioResponseDTO> 
 
     public void addLinks(Usuario user){
         this.add(linkTo(UsuarioController.class).slash(user.getId()).withSelfRel());
-        this.add(linkTo(PerfilUsuarioController.class).slash(user.getPerfilUsuario().getId()).withRel("perfil"));
+        if(user.getPerfilUsuario() != null){
+            this.add(linkTo(PerfilUsuarioController.class).slash(user.getPerfilUsuario().getId()).withRel("perfil"));
+        }
 
         if(user.getEnderecos() != null){
             for(Endereco endereco : user.getEnderecos()){

@@ -97,7 +97,9 @@ public class ProdutoController {
     }
 
     private ProdutoResponseDTO convertToDto(Produto produto){
-        return mapper.map(produto, ProdutoResponseDTO.class);
+        ProdutoResponseDTO produtoDto = mapper.map(produto, ProdutoResponseDTO.class);
+        produtoDto.addLinks(produto);
+        return produtoDto;
     }
 
     private Produto convertToEntity(@RequestBody ProdutoRequestDTO produtoDto){
