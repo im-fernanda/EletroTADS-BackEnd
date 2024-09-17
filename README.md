@@ -22,7 +22,7 @@
 1. Crie um Banco de Dados no seu administrador de desenvolvimento para o PostgreSQL ou diretamente no contêiner Docker, criando assim o Banco de Dados inicial para testes. Com isso feito, siga os passos abaixo.
 2. Clone o repositório e acesse a pasta do projeto:
   
-       $ git clone im-fernanda/EletroApplication
+       $ git clone im-fernanda/EletroTADS-BackEnd
        $ cd nome-da-sua-pasta
 
 3. Crie um arquivo application.propertiers na raiz do projeto e insira suas credencias. Utilize como exemplo:
